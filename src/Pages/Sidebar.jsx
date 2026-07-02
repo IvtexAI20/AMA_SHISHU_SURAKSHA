@@ -11,6 +11,10 @@ export default function Sidebar({ isOpen, onClose }) {
     if (location.pathname === '/nutrition') return 'Nutrition';
     if (location.pathname === '/safety') return 'Safety & CCTV';
     if (location.pathname === '/health') return 'Health';
+    if (location.pathname === '/incidents') return 'Incidents';
+    if (location.pathname === '/inspections') return 'Inspections';
+    if (location.pathname === '/reports') return 'Reports';
+    if (location.pathname === '/settings') return 'Settings';
     return 'Dashboard';
   };
 
@@ -65,14 +69,7 @@ export default function Sidebar({ isOpen, onClose }) {
         </svg>
       )
     },
-    {
-      name: 'GIS Intelligence',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L16 4m0 13V4m0 0L9 7" />
-        </svg>
-      )
-    },
+
     {
       name: 'Incidents',
       icon: (
@@ -89,14 +86,7 @@ export default function Sidebar({ isOpen, onClose }) {
         </svg>
       )
     },
-    {
-      name: 'Analytics',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-      )
-    },
+
     {
       name: 'Reports',
       icon: (
@@ -105,22 +95,8 @@ export default function Sidebar({ isOpen, onClose }) {
         </svg>
       )
     },
-    {
-      name: 'Users',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      )
-    },
-    {
-      name: 'AI Assistant',
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0l-1.414 1.414a2 2 0 01-2.828 0L7.05 16.243z" />
-        </svg>
-      )
-    },
+
+
     {
       name: 'Settings',
       icon: (
@@ -136,19 +112,18 @@ export default function Sidebar({ isOpen, onClose }) {
     <>
       {/* Mobile & Tablet Backdrop Overlay */}
       {isOpen && (
-        <div 
+        <div
           onClick={onClose}
           className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-40 lg:hidden transition-opacity duration-300"
         />
       )}
 
       {/* Sidebar Container: Fixed slide-over drawer on mobile/tablet, sticky left panel on desktop */}
-      <aside 
-        className={`fixed lg:sticky top-0 left-0 z-50 h-screen w-64 lg:w-72 shrink-0 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col font-sans select-none border-r border-slate-100 dark:border-slate-700/60 shadow-lg lg:shadow-xs transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        }`}
+      <aside
+        className={`fixed lg:sticky top-0 left-0 z-50 h-screen w-64 lg:w-72 shrink-0 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col font-sans select-none border-r border-slate-100 dark:border-slate-700/60 shadow-lg lg:shadow-xs transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          }`}
       >
-        
+
         {/* Header Profile Section */}
         <div className="p-6 flex items-center justify-between border-b border-slate-100 dark:border-slate-700/60">
           <div className="flex items-center gap-4">
@@ -156,7 +131,7 @@ export default function Sidebar({ isOpen, onClose }) {
             <div className="w-12 h-12 rounded-full bg-[#078662]/10 flex items-center justify-center text-[#078662] font-bold text-lg">
               AS
             </div>
-            
+
             {/* Title Details */}
             <div className="flex flex-col">
               <h2 className="text-slate-800 dark:text-white font-bold text-sm tracking-wide leading-tight">
@@ -169,7 +144,7 @@ export default function Sidebar({ isOpen, onClose }) {
           </div>
 
           {/* Mobile Close (X) Button */}
-          <button 
+          <button
             onClick={onClose}
             className="p-2 rounded-lg text-slate-400 hover:text-slate-650 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors lg:hidden"
             title="Close Sidebar"
@@ -194,18 +169,20 @@ export default function Sidebar({ isOpen, onClose }) {
                   else if (item.name === 'Nutrition') navigate('/nutrition');
                   else if (item.name === 'Safety & CCTV') navigate('/safety');
                   else if (item.name === 'Health') navigate('/health');
+                  else if (item.name === 'Incidents') navigate('/incidents');
+                  else if (item.name === 'Inspections') navigate('/inspections');
+                  else if (item.name === 'Reports') navigate('/reports');
+                  else if (item.name === 'Settings') navigate('/settings');
                   if (onClose) onClose();
                 }}
-                className={`w-full flex items-center justify-between py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 group ${
-                  isActive
-                    ? 'bg-[#078662] text-white shadow-sm'
-                    : 'hover:bg-slate-50 dark:hover:bg-slate-700/40 hover:text-slate-800 dark:hover:text-white text-slate-500 dark:text-slate-400'
-                }`}
+                className={`w-full flex items-center justify-between py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 group ${isActive
+                  ? 'bg-[#078662] text-white shadow-sm'
+                  : 'hover:bg-slate-50 dark:hover:bg-slate-700/40 hover:text-slate-800 dark:hover:text-white text-slate-500 dark:text-slate-400'
+                  }`}
               >
                 <div className="flex items-center gap-3.5">
-                  <span className={`transition-colors duration-200 ${
-                    isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-650'
-                  }`}>
+                  <span className={`transition-colors duration-200 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-650'
+                    }`}>
                     {item.icon}
                   </span>
                   <span>{item.name}</span>

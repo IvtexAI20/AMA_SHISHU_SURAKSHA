@@ -14,7 +14,6 @@ import {
   Cell,
 } from 'recharts';
 
-// ---- Static data (replace with API data later) ----
 
 const trendData = [
   { month: 'Jan', attendance: 72, nutrition: 70, incidents: 30 },

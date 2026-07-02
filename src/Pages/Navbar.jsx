@@ -35,6 +35,8 @@ export default function Navbar({ onToggleSidebar }) {
   }, []);
 
   const handleSignOut = () => {
+    localStorage.removeItem('isAuthenticated');
+    sessionStorage.removeItem('isAuthenticated');
     navigate('/login');
   };
 
@@ -43,9 +45,9 @@ export default function Navbar({ onToggleSidebar }) {
 
       {/* Left side: Mobile Hamburger Toggle & Search Bar */}
       <div className="flex items-center gap-3 sm:gap-4 flex-1">
-        
+
         {/* Three Line Menu Icon (Visible on Mobile & Tablet, hidden on Large Desktop) */}
-        <button 
+        <button
           onClick={onToggleSidebar}
           className="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors lg:hidden"
           title="Open Menu"
@@ -99,12 +101,7 @@ export default function Navbar({ onToggleSidebar }) {
           <span className="w-2.5 h-2.5 bg-rose-500 rounded-full border border-white dark:border-slate-900 absolute top-1.5 right-1.5 shadow-sm"></span>
         </button>
 
-        {/* AI Assistant Insight sparkles */}
-        <button className="p-2 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 text-cyan-600 dark:text-cyan-400 transition-colors" title="AI Assistant">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0l-1.414 1.414a2 2 0 01-2.828 0L7.05 16.243z" />
-          </svg>
-        </button>
+
 
         {/* User Profile Info with Dropdown Trigger */}
         <div className="relative ml-2" ref={dropdownRef}>
