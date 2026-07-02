@@ -1,45 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import dbData from '../data.json';
 
-const initialIncidents = [
-  { id: "INC-3000", title: "Unauthorized entry detected", creche: "Shishu Crèche 1", category: "Safety", severity: "High", status: "Assigned", assigned: "Insp. Rao", reported: "2026-06-10 9:00" },
-  { id: "INC-3001", title: "Fall detection alert", creche: "Ananda Crèche 2", category: "Health", severity: "High", status: "New", assigned: "Insp. Singh", reported: "2026-06-11 10:07" },
-  { id: "INC-3002", title: "Meal quality concern", creche: "Surya Crèche 3", category: "Nutrition", severity: "Medium", status: "Closed", assigned: "Insp. Behera", reported: "2026-06-12 11:14" },
-  { id: "INC-3003", title: "Child distress signal", creche: "Tara Crèche 4", category: "Infrastructure", severity: "Low", status: "Resolved", assigned: "Insp. Patnaik", reported: "2026-06-13 12:21" },
-  { id: "INC-3004", title: "Power outage", creche: "Jagannath Crèche 5", category: "Safety", severity: "Low", status: "Investigating", assigned: "Insp. Rao", reported: "2026-06-14 13:28" },
-  { id: "INC-3005", title: "Sanitation issue", creche: "Konark Crèche 6", category: "Health", severity: "Critical", status: "Assigned", assigned: "Insp. Singh", reported: "2026-06-15 14:35" },
-  { id: "INC-3006", title: "Staff absence", creche: "Lotus Crèche 7", category: "Nutrition", severity: "High", status: "New", assigned: "Insp. Behera", reported: "2026-06-16 15:42" },
-  { id: "INC-3007", title: "Equipment failure", creche: "Asha Crèche 8", category: "Infrastructure", severity: "High", status: "Closed", assigned: "Insp. Patnaik", reported: "2026-06-17 16:49" },
-  { id: "INC-3008", title: "Unauthorized entry detected", creche: "Shishu Crèche 9", category: "Safety", severity: "Medium", status: "Resolved", assigned: "Insp. Rao", reported: "2026-06-18 17:56" },
-  { id: "INC-3009", title: "Fall detection alert", creche: "Ananda Crèche 10", category: "Health", severity: "Low", status: "Investigating", assigned: "Insp. Singh", reported: "2026-06-19 9:03" },
-  { id: "INC-3010", title: "Meal quality concern", creche: "Surya Crèche 11", category: "Nutrition", severity: "Low", status: "Assigned", assigned: "Insp. Behera", reported: "2026-06-20 10:10" },
-  { id: "INC-3011", title: "Fire alarm trigger", creche: "Tara Crèche 12", category: "Safety", severity: "Critical", status: "New", assigned: "Insp. Patnaik", reported: "2026-06-21 11:20" },
-  { id: "INC-3012", title: "Water supply failure", creche: "Jagannath Crèche 13", category: "Infrastructure", severity: "Medium", status: "Investigating", assigned: "Insp. Rao", reported: "2026-06-22 12:45" },
-  { id: "INC-3013", title: "First aid dispatch", creche: "Konark Crèche 14", category: "Health", severity: "Low", status: "Resolved", assigned: "Insp. Singh", reported: "2026-06-23 13:15" },
-  { id: "INC-3014", title: "Spoiled milk report", creche: "Lotus Crèche 15", category: "Nutrition", severity: "High", status: "Closed", assigned: "Insp. Behera", reported: "2026-06-24 14:05" },
-  { id: "INC-3015", title: "Intruder warning", creche: "Asha Crèche 16", category: "Safety", severity: "Critical", status: "Assigned", assigned: "Insp. Patnaik", reported: "2026-06-25 15:30" },
-  { id: "INC-3016", title: "Fever outbreak", creche: "Shishu Crèche 17", category: "Health", severity: "High", status: "New", assigned: "Insp. Rao", reported: "2026-06-26 16:12" },
-  { id: "INC-3017", title: "Broken window pane", creche: "Ananda Crèche 18", category: "Infrastructure", severity: "Low", status: "Resolved", assigned: "Insp. Singh", reported: "2026-06-27 17:00" },
-  { id: "INC-3018", title: "Hygiene checklist failure", creche: "Surya Crèche 19", category: "Health", severity: "Medium", status: "Investigating", assigned: "Insp. Behera", reported: "2026-06-28 08:30" },
-  { id: "INC-3019", title: "Nutrition deficit alert", creche: "Tara Crèche 20", category: "Nutrition", severity: "High", status: "Assigned", assigned: "Insp. Patnaik", reported: "2026-06-29 09:15" },
-  { id: "INC-3020", title: "Gate lock malfunction", creche: "Jagannath Crèche 21", category: "Safety", severity: "Medium", status: "New", assigned: "Insp. Rao", reported: "2026-06-30 10:45" },
-  { id: "INC-3021", title: "Respiratory virus warning", creche: "Konark Crèche 22", category: "Health", severity: "Critical", status: "Investigating", assigned: "Insp. Singh", reported: "2026-07-01 11:20" },
-  { id: "INC-3022", title: "Pest control needed", creche: "Lotus Crèche 23", category: "Infrastructure", severity: "Low", status: "Resolved", assigned: "Insp. Behera", reported: "2026-07-02 12:00" },
-  { id: "INC-3023", title: "Expired food stock", creche: "Asha Crèche 24", category: "Nutrition", severity: "High", status: "Assigned", assigned: "Insp. Patnaik", reported: "2026-07-03 13:40" },
-  { id: "INC-3024", title: "CCTV offline alert", creche: "Shishu Crèche 25", category: "Safety", severity: "Medium", status: "Closed", assigned: "Insp. Rao", reported: "2026-07-04 14:10" },
-  { id: "INC-3025", title: "Heat stroke symptoms", creche: "Ananda Crèche 26", category: "Health", severity: "High", status: "New", assigned: "Insp. Singh", reported: "2026-07-05 15:55" },
-  { id: "INC-3026", title: "Roof leakage issue", creche: "Surya Crèche 27", category: "Infrastructure", severity: "Medium", status: "Investigating", assigned: "Insp. Behera", reported: "2026-07-06 16:30" },
-  { id: "INC-3027", title: "Underweight child alert", creche: "Tara Crèche 28", category: "Nutrition", severity: "Low", status: "Resolved", assigned: "Insp. Patnaik", reported: "2026-07-07 17:15" },
-  { id: "INC-3028", title: "Unidentified parcel at gate", creche: "Jagannath Crèche 29", category: "Safety", severity: "High", status: "Assigned", assigned: "Insp. Rao", reported: "2026-07-08 09:10" },
-  { id: "INC-3029", title: "Accidental cut/injury", creche: "Konark Crèche 30", category: "Health", severity: "Low", status: "Closed", assigned: "Insp. Singh", reported: "2026-07-09 10:20" },
-  { id: "INC-3030", title: "Playground fence broken", creche: "Lotus Crèche 31", category: "Infrastructure", severity: "Medium", status: "New", assigned: "Insp. Behera", reported: "2026-07-10 11:35" },
-  { id: "INC-3031", title: "Dietary restriction breach", creche: "Asha Crèche 32", category: "Nutrition", severity: "High", status: "Investigating", assigned: "Insp. Patnaik", reported: "2026-07-11 12:50" },
-  { id: "INC-3032", title: "Suspected gas leak", creche: "Shishu Crèche 33", category: "Safety", severity: "Critical", status: "New", assigned: "Insp. Rao", reported: "2026-07-12 14:15" },
-  { id: "INC-3033", title: "Skin allergy outbreak", creche: "Ananda Crèche 34", category: "Health", severity: "Medium", status: "Assigned", assigned: "Insp. Singh", reported: "2026-07-13 15:30" },
-  { id: "INC-3034", title: "Kitchen appliance spark", creche: "Surya Crèche 35", category: "Infrastructure", severity: "High", status: "Resolved", assigned: "Insp. Behera", reported: "2026-07-14 16:45" },
-  { id: "INC-3035", title: "Water contamination alert", creche: "Tara Crèche 36", category: "Health", severity: "Critical", status: "Investigating", assigned: "Insp. Patnaik", reported: "2026-07-15 17:50" },
-];
+const initialIncidents = dbData.incidents;
 
 export default function Incidents() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -206,7 +170,7 @@ export default function Incidents() {
           </div>
 
           {/* Interactive Search & Filter Controls */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/60 p-4 mb-6 shadow-xs flex flex-wrap items-center gap-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/60 p-4 mb-6 shadow-xs flex flex-wrap items-center gap-4 transition-all duration-300 hover:shadow-md hover:shadow-slate-100/50 dark:hover:shadow-none">
             {/* Search Input */}
             <div className="relative flex-1 min-w-[240px]">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -219,7 +183,7 @@ export default function Incidents() {
                 placeholder="Search by ID, title, crèche or inspector..."
                 value={searchQuery}
                 onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-                className="w-full pl-9.5 pr-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#078662]/20 focus:border-[#078662] transition-all"
+                className="w-full pl-9.5 pr-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus-glow-brand transition-all"
               />
             </div>
 
@@ -229,7 +193,7 @@ export default function Incidents() {
               <select
                 value={categoryFilter}
                 onChange={(e) => { setCategoryFilter(e.target.value); setCurrentPage(1); }}
-                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#078662]/20"
+                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus-glow-brand cursor-pointer transition-all duration-200"
               >
                 <option value="All">All Categories</option>
                 <option value="Safety">Safety</option>
@@ -245,7 +209,7 @@ export default function Incidents() {
               <select
                 value={severityFilter}
                 onChange={(e) => { setSeverityFilter(e.target.value); setCurrentPage(1); }}
-                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#078662]/20"
+                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus-glow-brand cursor-pointer transition-all duration-200"
               >
                 <option value="All">All Severities</option>
                 <option value="Critical">Critical</option>
@@ -261,7 +225,7 @@ export default function Incidents() {
               <select
                 value={statusFilter}
                 onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
-                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#078662]/20"
+                className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus-glow-brand cursor-pointer transition-all duration-200"
               >
                 <option value="All">All Statuses</option>
                 <option value="New">New</option>

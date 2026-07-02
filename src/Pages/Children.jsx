@@ -21,7 +21,17 @@ const growthCurveData = dbData.growthCurveData;
 
 export default function Children() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [childrenList, setChildrenList] = useState(initialChildren);
+  const [childrenList, setChildrenList] = useState(() => {
+    const saved = localStorage.getItem('childrenList');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return initialChildren;
+  });
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('All Statuses');
   const [showEnrollModal, setShowEnrollModal] = useState(false);
@@ -82,15 +92,9 @@ export default function Children() {
     }))
   );
 
-  const [activeAlerts, setActiveAlerts] = useState([
-    { id: 'a1', title: 'Growth Warning', desc: 'Weight gain curve is 12% flatter than typical WHO 50th percentile.', date: '3 days ago', type: 'Warning' },
-    { id: 'a2', title: 'Vaccination Alert', desc: 'DPT Booster 1 window is active. Scheduled recommendation is overdue by 14 days.', date: '1 week ago', type: 'Critical' },
-  ]);
+  const [activeAlerts, setActiveAlerts] = useState(dbData.childActiveAlerts);
 
-  const [healthLogs, setHealthLogs] = useState([
-    { id: 'h1', type: 'Regular Inspection', desc: 'Normal growth rate. Temperature 98.4F. Advised iron rich diet supplements.', date: '2026-06-15', status: 'Healthy' },
-    { id: 'h2', type: 'Immunization Visit', desc: 'Measles 1 dose administered. Weight log recorded as 12kg (+500g gain).', date: '2026-03-15', status: 'Healthy' }
-  ]);
+  const [healthLogs, setHealthLogs] = useState(dbData.childDetailHealthLogs);
 
   // Form state for enrolling a child
   const [formData, setFormData] = useState({
@@ -141,7 +145,9 @@ export default function Children() {
       guardian: formData.guardian,
     };
 
-    setChildrenList([newChild, ...childrenList]);
+    const updatedList = [newChild, ...childrenList];
+    setChildrenList(updatedList);
+    localStorage.setItem('childrenList', JSON.stringify(updatedList));
     setShowEnrollModal(false);
     triggerToast(`Child ${formData.name.trim()} enrolled successfully!`);
     setFormData({
@@ -725,9 +731,9 @@ export default function Children() {
             </button>
             <button 
               onClick={() => setShowScheduleVisitModal(true)}
-              className="flex items-center justify-center gap-2 px-4.5 py-2.5 text-xs sm:text-sm font-bold text-white bg-[#078662] hover:bg-[#066e51] rounded-xl transition-all active:scale-95 shadow-md whitespace-nowrap cursor-pointer"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-[#078662] hover:bg-[#066e51] rounded-xl transition-all active:scale-95 shadow-md shadow-[#078662]/10 whitespace-nowrap cursor-pointer"
             >
-              <svg className="w-4 h-4 text-slate-200" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <span>Schedule Visit</span>
@@ -838,7 +844,7 @@ export default function Children() {
                 <div className="flex items-center gap-3 self-end sm:self-auto">
                   <button
                     onClick={() => setShowEnrollModal(true)}
-                    className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-colors shadow-sm cursor-pointer active:scale-95"
+                    className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-colors shadow-sm cursor-pointer active:scale-95 premium-btn"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -849,7 +855,7 @@ export default function Children() {
               </div>
 
               {/* Search & Filter card */}
-              <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-4 mb-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors">
+              <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-4 mb-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-300 hover:shadow-md hover:shadow-slate-100/50 dark:hover:shadow-none">
                 {/* Search Input */}
                 <div className="relative w-full sm:max-w-xl">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
@@ -865,7 +871,7 @@ export default function Children() {
                       setCurrentPage(1);
                     }}
                     placeholder="Search by name..."
-                    className="w-full pl-11 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/60 border-none rounded-full text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full pl-11 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-transparent rounded-full text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 focus-glow-brand transition-all"
                   />
                 </div>
 
@@ -877,7 +883,7 @@ export default function Children() {
                       setSelectedStatus(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="appearance-none w-full sm:w-48 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full pl-4 pr-9 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="appearance-none w-full sm:w-48 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full pl-4 pr-9 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 cursor-pointer focus-glow-brand transition-all"
                   >
                     <option value="All Statuses">All Statuses</option>
                     <option value="Healthy">Healthy</option>
@@ -893,44 +899,44 @@ export default function Children() {
               {/* Children Table Container */}
               <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 shadow-sm overflow-hidden transition-colors">
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                  <table className="w-full min-w-[1200px] border-collapse text-left">
                     <thead>
                       <tr className="bg-[#f8fafc] dark:bg-slate-900/60 border-b border-slate-100 dark:border-slate-700/50 font-sans">
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">ID</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Name</th>
+                        <th className="sticky left-0 z-20 bg-[#f8fafc] dark:bg-slate-900 px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider w-[100px] min-w-[100px]">ID</th>
+                        <th className="sticky left-[100px] z-20 bg-[#f8fafc] dark:bg-slate-900 px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider w-[220px] min-w-[220px] shadow-[2px_0_5px_rgba(0,0,0,0.05)] dark:shadow-[2px_0_5px_rgba(0,0,0,0.2)]">NAME</th>
                         <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Age</th>
                         <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Gender</th>
                         <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Crèche</th>
                         <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Risk Score</th>
                         <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Attendance</th>
                         <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Status</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-right pr-8">Action</th>
+                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider text-right pr-6"></th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50">
                       {paginatedChildren.map((child) => (
                         <tr 
                           key={child.id}
-                          className="hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors"
+                          className="group hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors"
                         >
-                          <td className="px-6 py-5 text-[13px] text-slate-500 dark:text-slate-400 font-semibold whitespace-nowrap">
+                          <td className="sticky left-0 z-10 bg-white dark:bg-slate-800 px-6 py-4 text-[13px] text-slate-500 dark:text-slate-400 font-semibold whitespace-nowrap w-[100px] min-w-[100px] transition-colors group-hover:bg-[#f8fafc] dark:group-hover:bg-slate-700/20">
                             {child.id}
                           </td>
-                          <td className="px-6 py-5 whitespace-nowrap">
-                            <span className="text-sm font-bold text-slate-800 dark:text-white">
+                          <td className="sticky left-[100px] z-10 bg-white dark:bg-slate-800 px-6 py-4 whitespace-nowrap w-[220px] min-w-[220px] shadow-[2px_0_5px_rgba(0,0,0,0.05)] dark:shadow-[2px_0_5px_rgba(0,0,0,0.2)] transition-colors group-hover:bg-[#f8fafc] dark:group-hover:bg-slate-700/20">
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                               {child.name}
                             </span>
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                             {child.age}
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                             {child.gender}
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                             {child.creche}
                           </td>
-                          <td className="px-6 py-5 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center gap-3">
                               <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden shrink-0">
                                 <div 
@@ -949,10 +955,10 @@ export default function Children() {
                               </span>
                             </div>
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-6 py-4 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                             {child.attendance}
                           </td>
-                          <td className="px-6 py-5 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap">
                             <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${
                               child.status.toLowerCase() === 'healthy'
                                 ? 'bg-[#edf9f1] dark:bg-emerald-950/40 text-[#22c55e] dark:text-emerald-400 border border-[#22c55e]/10 dark:border-emerald-900/30'
@@ -970,12 +976,12 @@ export default function Children() {
                               {child.status}
                             </span>
                           </td>
-                          <td className="px-6 py-5 text-right whitespace-nowrap pr-8">
+                          <td className="px-6 py-4 text-right whitespace-nowrap pr-4">
                             <button 
                               onClick={() => handleSelectChild(child)}
-                              className="flex items-center gap-1.5 ml-auto text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 font-bold text-sm tracking-wide transition-colors hover:underline cursor-pointer select-none"
+                              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#078662] hover:text-white border border-[#078662]/20 hover:border-transparent hover:bg-[#078662] transition-all duration-200 cursor-pointer select-none active:scale-95"
                             >
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                               </svg>

@@ -9,8 +9,28 @@ const initialRecentUploads = dbData.recentUploads;
 
 export default function Nutrition() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [recentUploads, setRecentUploads] = useState(initialRecentUploads);
-  const [complianceData, setComplianceData] = useState(initialComplianceData);
+  const [recentUploads, setRecentUploads] = useState(() => {
+    const saved = localStorage.getItem('recentUploads');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return initialRecentUploads;
+  });
+  const [complianceData, setComplianceData] = useState(() => {
+    const saved = localStorage.getItem('complianceData');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return initialComplianceData;
+  });
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
 
@@ -49,7 +69,9 @@ export default function Nutrition() {
     };
 
     // Update listings
-    setRecentUploads([newUpload, ...recentUploads]);
+    const updatedUploads = [newUpload, ...recentUploads];
+    setRecentUploads(updatedUploads);
+    localStorage.setItem('recentUploads', JSON.stringify(updatedUploads));
     
     // Add compliance bump for this crèche
     const updatedData = complianceData.map(c => {
@@ -59,6 +81,7 @@ export default function Nutrition() {
       return c;
     });
     setComplianceData(updatedData);
+    localStorage.setItem('complianceData', JSON.stringify(updatedData));
 
     setShowUploadModal(false);
     triggerToast(`Meal uploaded successfully for ${formData.creche}!`);
@@ -151,7 +174,7 @@ export default function Nutrition() {
             
             <button
               onClick={() => setShowUploadModal(true)}
-              className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-all shadow-sm cursor-pointer active:scale-95 self-end sm:self-auto"
+              className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-all shadow-sm cursor-pointer active:scale-95 premium-btn self-end sm:self-auto"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -164,8 +187,8 @@ export default function Nutrition() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             
             {/* Avg Compliance */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all hover:shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-[#22c55e] flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1">
+              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-[#22c55e] flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -182,8 +205,8 @@ export default function Nutrition() {
             </div>
 
             {/* Meals Logged Today */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all hover:shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-sky-50 dark:bg-sky-950/20 text-[#0ea5e9] flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1">
+              <div className="w-10 h-10 rounded-full bg-sky-50 dark:bg-sky-950/20 text-[#0ea5e9] flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                 </svg>
@@ -200,8 +223,8 @@ export default function Nutrition() {
             </div>
 
             {/* Quality Flags */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all hover:shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-950/20 text-[#f59e0b] flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1">
+              <div className="w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-950/20 text-[#f59e0b] flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                 </svg>
@@ -218,8 +241,8 @@ export default function Nutrition() {
             </div>
 
             {/* Children at Risk */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all hover:shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-rose-50 dark:bg-rose-950/20 text-[#ef4444] flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1">
+              <div className="w-10 h-10 rounded-full bg-rose-50 dark:bg-rose-950/20 text-[#ef4444] flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                 </svg>
@@ -270,19 +293,19 @@ export default function Nutrition() {
 
               {/* Table Column Labels */}
               <div className="hidden sm:grid grid-cols-12 gap-4 pb-3.5 border-b border-slate-100 dark:border-slate-700/50 text-[10px] sm:text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                <div className="col-span-4 sm:col-span-3">Crèche</div>
-                <div className="col-span-6 sm:col-span-7 text-left pl-4">Meal Compliance (%)</div>
+                <div className="col-span-3">Crèche</div>
+                <div className="col-span-7 text-left px-4">Meal Compliance (%)</div>
                 <div className="col-span-2 text-right"></div>
               </div>
 
               {/* Scrollable List container */}
               <div className="divide-y divide-slate-100 dark:divide-slate-700/50 overflow-y-auto no-scrollbar max-h-[380px] min-h-[360px]">
                 {complianceData.map((item) => (
-                  <div key={item.name} className="flex flex-col sm:grid sm:grid-cols-12 gap-2 sm:gap-4 py-4 py-4.5 items-stretch sm:items-center hover:bg-slate-50/20 dark:hover:bg-slate-900/10 transition-colors">
+                  <div key={item.name} className="flex flex-col sm:grid sm:grid-cols-12 gap-2 sm:gap-4 py-4.5 items-stretch sm:items-center hover:bg-slate-50/20 dark:hover:bg-slate-900/10 transition-colors">
                     
                     {/* Crèche Name / Title line */}
-                    <div className="flex items-center justify-between sm:col-span-4 sm:col-span-3">
-                      <span className="font-bold text-xs sm:text-sm text-slate-800 dark:text-white leading-tight">
+                    <div className="flex items-center justify-between sm:col-span-3">
+                      <span className="font-semibold text-xs text-slate-700 dark:text-slate-200 leading-tight">
                         {item.name}
                       </span>
                       {/* Mobile Badge indicator */}
@@ -295,7 +318,7 @@ export default function Nutrition() {
                     </div>
 
                     {/* Progress Bar Column */}
-                    <div className="sm:col-span-6 sm:col-span-7 sm:px-4 flex items-center w-full">
+                    <div className="sm:col-span-7 px-4 flex items-center w-full">
                       <div className="w-full bg-[#f1f5f9] dark:bg-slate-700/60 rounded-full h-4 sm:h-5 overflow-hidden">
                         <div 
                           className={`h-full rounded-full transition-all duration-500 ${getComplianceColor(item.compliance)}`} 
@@ -305,7 +328,7 @@ export default function Nutrition() {
                     </div>
 
                     {/* Desktop Score Value & Quality Label */}
-                    <div className="hidden sm:flex col-span-2 text-right flex-col items-end gap-1 shrink-0">
+                    <div className="hidden sm:flex sm:col-span-2 text-right flex-col items-end gap-1 shrink-0">
                       <span className={`text-sm font-semibold leading-none ${getComplianceTextColor(item.compliance)}`}>
                         {item.compliance}%
                       </span>
@@ -318,8 +341,8 @@ export default function Nutrition() {
 
               {/* Bottom Grid X-Axis Ticks */}
               <div className="hidden sm:grid grid-cols-12 gap-4 pt-4 border-t border-slate-100 dark:border-slate-700/50 mt-2">
-                <div className="col-span-4 sm:col-span-3"></div>
-                <div className="col-span-6 sm:col-span-7 px-4 w-full relative">
+                <div className="col-span-3"></div>
+                <div className="col-span-7 px-4 w-full relative">
                   <div className="flex justify-between text-[11px] font-bold text-slate-400 dark:text-slate-500 pr-1 select-none">
                     <span>0%</span>
                     <span>25%</span>

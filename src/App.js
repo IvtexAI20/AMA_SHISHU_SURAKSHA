@@ -4,6 +4,7 @@ import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
 import Creches from './Pages/Creches';
 import Children from './Pages/Children';
+import Attendance from './Pages/Attendance';
 import Nutrition from './Pages/Nutrition';
 import Safety from './Pages/Safety';
 import Health from './Pages/Health';
@@ -36,6 +37,7 @@ function App() {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/creches" element={<ProtectedRoute><Creches /></ProtectedRoute>} />
         <Route path="/children" element={<ProtectedRoute><Children /></ProtectedRoute>} />
+        <Route path="/attendance" element={<ProtectedRoute><Attendance /></ProtectedRoute>} />
         <Route path="/nutrition" element={<ProtectedRoute><Nutrition /></ProtectedRoute>} />
         <Route path="/safety" element={<ProtectedRoute><Safety /></ProtectedRoute>} />
         <Route path="/health" element={<ProtectedRoute><Health /></ProtectedRoute>} />

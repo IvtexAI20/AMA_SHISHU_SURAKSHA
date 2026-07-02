@@ -141,7 +141,7 @@ export default function Settings() {
                         required
                         value={profile.name}
                         onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#078662]/20"
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus-glow-brand transition-all"
                       />
                     </div>
 
@@ -152,7 +152,7 @@ export default function Settings() {
                         required
                         value={profile.email}
                         onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#078662]/20"
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus-glow-brand transition-all"
                       />
                     </div>
 
@@ -163,7 +163,7 @@ export default function Settings() {
                         required
                         value={profile.district}
                         onChange={(e) => setProfile({ ...profile, district: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#078662]/20"
+                        className="w-full px-4 py-2.5 border border-slate-200 dark:border-slate-700 bg-transparent rounded-xl text-sm text-slate-800 dark:text-slate-100 placeholder-slate-400 focus-glow-brand transition-all"
                       />
                     </div>
 
@@ -290,7 +290,7 @@ export default function Settings() {
               <div className="pt-6 border-t border-slate-100 dark:border-slate-700/60 flex justify-end">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 text-sm font-bold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-colors cursor-pointer shadow-sm active:scale-95 whitespace-nowrap"
+                  className="px-6 py-2.5 text-sm font-bold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-all cursor-pointer shadow-sm active:scale-95 premium-btn whitespace-nowrap"
                 >
                   Save Settings
                 </button>

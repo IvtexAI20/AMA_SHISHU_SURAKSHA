@@ -1,50 +1,537 @@
 {
   "creches": [
-    { "id": 1, "name": "Joda Shishu Crèche", "code": "OD/KJR/1001", "district": "Keonjhar", "block": "Joda Block", "status": "Healthy", "children": 40, "attendance": "91%", "safety": 79 },
-    { "id": 2, "name": "Champua Ananda Kendra", "code": "OD/KJR/1002", "district": "Keonjhar", "block": "Champua Block", "status": "Healthy", "children": 22, "attendance": "89%", "safety": 79 },
-    { "id": 3, "name": "Anandapur Surya Crèche", "code": "OD/KJR/1003", "district": "Keonjhar", "block": "Anandapur Block", "status": "Warning", "children": 27, "attendance": "88%", "safety": 78 },
-    { "id": 4, "name": "Ghatagaon Tarini Crèche", "code": "OD/KJR/1004", "district": "Keonjhar", "block": "Ghatagaon Block", "status": "Warning", "children": 32, "attendance": "86%", "safety": 77 },
-    { "id": 5, "name": "Harichandanpur Shishu Kendra", "code": "OD/KJR/1005", "district": "Keonjhar", "block": "Harichandanpur Block", "status": "Critical", "children": 30, "attendance": "92%", "safety": 97 },
-    { "id": 6, "name": "Telkoi Konark Crèche", "code": "OD/KJR/1006", "district": "Keonjhar", "block": "Telkoi Block", "status": "Healthy", "children": 18, "attendance": "83%", "safety": 76 },
-    { "id": 7, "name": "Banspal Lotus Crèche", "code": "OD/KJR/1007", "district": "Keonjhar", "block": "Banspal Block", "status": "Healthy", "children": 23, "attendance": "82%", "safety": 75 },
-    { "id": 8, "name": "Jhumpura Asha Kendra", "code": "OD/KJR/1008", "district": "Keonjhar", "block": "Jhumpura Block", "status": "Warning", "children": 29, "attendance": "80%", "safety": 74 },
-    { "id": 9, "name": "Saharpada Shishu Kendra", "code": "OD/KJR/1009", "district": "Keonjhar", "block": "Saharpada Block", "status": "Warning", "children": 35, "attendance": "85%", "safety": 74 },
-    { "id": 10, "name": "Patna Ananda Crèche", "code": "OD/KJR/1010", "district": "Keonjhar", "block": "Patna Block", "status": "Healthy", "children": 39, "attendance": "77%", "safety": 73 },
-    { "id": 11, "name": "Hatadihi Surya Crèche", "code": "OD/KJR/1011", "district": "Keonjhar", "block": "Hatadihi Block", "status": "Critical", "children": 25, "attendance": "72%", "safety": 90 },
-    { "id": 12, "name": "Keonjhargarh Central Crèche", "code": "OD/KJR/1012", "district": "Keonjhar", "block": "Keonjhar Town", "status": "Healthy", "children": 25, "attendance": "74%", "safety": 72 },
-    { "id": 13, "name": "Barbil Steel City Crèche", "code": "OD/KJR/1013", "district": "Keonjhar", "block": "Joda Block", "status": "Healthy", "children": 38, "attendance": "94%", "safety": 84 },
-    { "id": 14, "name": "Kashipur Shishu Kendra", "code": "OD/KJR/1014", "district": "Keonjhar", "block": "Champua Block", "status": "Healthy", "children": 26, "attendance": "88%", "safety": 81 },
-    { "id": 15, "name": "Ghasipura Ananda Crèche", "code": "OD/KJR/1015", "district": "Keonjhar", "block": "Anandapur Block", "status": "Warning", "children": 31, "attendance": "82%", "safety": 76 },
-    { "id": 16, "name": "Kenduapada Tarini Kendra", "code": "OD/KJR/1016", "district": "Keonjhar", "block": "Ghatagaon Block", "status": "Healthy", "children": 24, "attendance": "90%", "safety": 80 },
-    { "id": 17, "name": "Daitari Mining Crèche", "code": "OD/KJR/1017", "district": "Keonjhar", "block": "Harichandanpur Block", "status": "Critical", "children": 29, "attendance": "70%", "safety": 88 },
-    { "id": 18, "name": "Kanjipani Hilltop Crèche", "code": "OD/KJR/1018", "district": "Keonjhar", "block": "Telkoi Block", "status": "Warning", "children": 20, "attendance": "79%", "safety": 75 },
-    { "id": 19, "name": "Suakati Tribal Kendra", "code": "OD/KJR/1019", "district": "Keonjhar", "block": "Banspal Block", "status": "Healthy", "children": 33, "attendance": "87%", "safety": 82 },
-    { "id": 20, "name": "Bamebari Shishu Kendra", "code": "OD/KJR/1020", "district": "Keonjhar", "block": "Jhumpura Block", "status": "Healthy", "children": 28, "attendance": "91%", "safety": 83 },
-    { "id": 21, "name": "Machhagarh Surya Crèche", "code": "OD/KJR/1021", "district": "Keonjhar", "block": "Saharpada Block", "status": "Healthy", "children": 36, "attendance": "89%", "safety": 78 },
-    { "id": 22, "name": "Turumunga Ananda Kendra", "code": "OD/KJR/1022", "district": "Keonjhar", "block": "Patna Block", "status": "Warning", "children": 30, "attendance": "83%", "safety": 76 },
-    { "id": 23, "name": "Soso Shishu Crèche", "code": "OD/KJR/1023", "district": "Keonjhar", "block": "Hatadihi Block", "status": "Healthy", "children": 27, "attendance": "86%", "safety": 79 },
-    { "id": 24, "name": "Dharanidhar Model Crèche", "code": "OD/KJR/1024", "district": "Keonjhar", "block": "Keonjhar Town", "status": "Healthy", "children": 42, "attendance": "96%", "safety": 92 }
+    {
+      "id": 1,
+      "name": "Joda Shishu Crèche",
+      "code": "OD/KJR/1001",
+      "district": "Keonjhar",
+      "block": "Joda Block",
+      "status": "Healthy",
+      "children": 40,
+      "attendance": "91%",
+      "safety": 79
+    },
+    {
+      "id": 2,
+      "name": "Champua Ananda Kendra",
+      "code": "OD/KJR/1002",
+      "district": "Keonjhar",
+      "block": "Champua Block",
+      "status": "Healthy",
+      "children": 22,
+      "attendance": "89%",
+      "safety": 79
+    },
+    {
+      "id": 3,
+      "name": "Anandapur Surya Crèche",
+      "code": "OD/KJR/1003",
+      "district": "Keonjhar",
+      "block": "Anandapur Block",
+      "status": "Warning",
+      "children": 27,
+      "attendance": "88%",
+      "safety": 78
+    },
+    {
+      "id": 4,
+      "name": "Ghatagaon Tarini Crèche",
+      "code": "OD/KJR/1004",
+      "district": "Keonjhar",
+      "block": "Ghatagaon Block",
+      "status": "Warning",
+      "children": 32,
+      "attendance": "86%",
+      "safety": 77
+    },
+    {
+      "id": 5,
+      "name": "Harichandanpur Shishu Kendra",
+      "code": "OD/KJR/1005",
+      "district": "Keonjhar",
+      "block": "Harichandanpur Block",
+      "status": "Critical",
+      "children": 30,
+      "attendance": "92%",
+      "safety": 97
+    },
+    {
+      "id": 6,
+      "name": "Telkoi Konark Crèche",
+      "code": "OD/KJR/1006",
+      "district": "Keonjhar",
+      "block": "Telkoi Block",
+      "status": "Healthy",
+      "children": 18,
+      "attendance": "83%",
+      "safety": 76
+    },
+    {
+      "id": 7,
+      "name": "Banspal Lotus Crèche",
+      "code": "OD/KJR/1007",
+      "district": "Keonjhar",
+      "block": "Banspal Block",
+      "status": "Healthy",
+      "children": 23,
+      "attendance": "82%",
+      "safety": 75
+    },
+    {
+      "id": 8,
+      "name": "Jhumpura Asha Kendra",
+      "code": "OD/KJR/1008",
+      "district": "Keonjhar",
+      "block": "Jhumpura Block",
+      "status": "Warning",
+      "children": 29,
+      "attendance": "80%",
+      "safety": 74
+    },
+    {
+      "id": 9,
+      "name": "Saharpada Shishu Kendra",
+      "code": "OD/KJR/1009",
+      "district": "Keonjhar",
+      "block": "Saharpada Block",
+      "status": "Warning",
+      "children": 35,
+      "attendance": "85%",
+      "safety": 74
+    },
+    {
+      "id": 10,
+      "name": "Patna Ananda Crèche",
+      "code": "OD/KJR/1010",
+      "district": "Keonjhar",
+      "block": "Patna Block",
+      "status": "Healthy",
+      "children": 39,
+      "attendance": "77%",
+      "safety": 73
+    },
+    {
+      "id": 11,
+      "name": "Hatadihi Surya Crèche",
+      "code": "OD/KJR/1011",
+      "district": "Keonjhar",
+      "block": "Hatadihi Block",
+      "status": "Critical",
+      "children": 25,
+      "attendance": "72%",
+      "safety": 90
+    },
+    {
+      "id": 12,
+      "name": "Keonjhargarh Central Crèche",
+      "code": "OD/KJR/1012",
+      "district": "Keonjhar",
+      "block": "Keonjhar Town",
+      "status": "Healthy",
+      "children": 25,
+      "attendance": "74%",
+      "safety": 72
+    },
+    {
+      "id": 13,
+      "name": "Barbil Steel City Crèche",
+      "code": "OD/KJR/1013",
+      "district": "Keonjhar",
+      "block": "Joda Block",
+      "status": "Healthy",
+      "children": 38,
+      "attendance": "94%",
+      "safety": 84
+    },
+    {
+      "id": 14,
+      "name": "Kashipur Shishu Kendra",
+      "code": "OD/KJR/1014",
+      "district": "Keonjhar",
+      "block": "Champua Block",
+      "status": "Healthy",
+      "children": 26,
+      "attendance": "88%",
+      "safety": 81
+    },
+    {
+      "id": 15,
+      "name": "Ghasipura Ananda Crèche",
+      "code": "OD/KJR/1015",
+      "district": "Keonjhar",
+      "block": "Anandapur Block",
+      "status": "Warning",
+      "children": 31,
+      "attendance": "82%",
+      "safety": 76
+    },
+    {
+      "id": 16,
+      "name": "Kenduapada Tarini Kendra",
+      "code": "OD/KJR/1016",
+      "district": "Keonjhar",
+      "block": "Ghatagaon Block",
+      "status": "Healthy",
+      "children": 24,
+      "attendance": "90%",
+      "safety": 80
+    },
+    {
+      "id": 17,
+      "name": "Daitari Mining Crèche",
+      "code": "OD/KJR/1017",
+      "district": "Keonjhar",
+      "block": "Harichandanpur Block",
+      "status": "Critical",
+      "children": 29,
+      "attendance": "70%",
+      "safety": 88
+    },
+    {
+      "id": 18,
+      "name": "Kanjipani Hilltop Crèche",
+      "code": "OD/KJR/1018",
+      "district": "Keonjhar",
+      "block": "Telkoi Block",
+      "status": "Warning",
+      "children": 20,
+      "attendance": "79%",
+      "safety": 75
+    },
+    {
+      "id": 19,
+      "name": "Suakati Tribal Kendra",
+      "code": "OD/KJR/1019",
+      "district": "Keonjhar",
+      "block": "Banspal Block",
+      "status": "Healthy",
+      "children": 33,
+      "attendance": "87%",
+      "safety": 82
+    },
+    {
+      "id": 20,
+      "name": "Bamebari Shishu Kendra",
+      "code": "OD/KJR/1020",
+      "district": "Keonjhar",
+      "block": "Jhumpura Block",
+      "status": "Healthy",
+      "children": 28,
+      "attendance": "91%",
+      "safety": 83
+    },
+    {
+      "id": 21,
+      "name": "Machhagarh Surya Crèche",
+      "code": "OD/KJR/1021",
+      "district": "Keonjhar",
+      "block": "Saharpada Block",
+      "status": "Healthy",
+      "children": 36,
+      "attendance": "89%",
+      "safety": 78
+    },
+    {
+      "id": 22,
+      "name": "Turumunga Ananda Kendra",
+      "code": "OD/KJR/1022",
+      "district": "Keonjhar",
+      "block": "Patna Block",
+      "status": "Warning",
+      "children": 30,
+      "attendance": "83%",
+      "safety": 76
+    },
+    {
+      "id": 23,
+      "name": "Soso Shishu Crèche",
+      "code": "OD/KJR/1023",
+      "district": "Keonjhar",
+      "block": "Hatadihi Block",
+      "status": "Healthy",
+      "children": 27,
+      "attendance": "86%",
+      "safety": 79
+    },
+    {
+      "id": 24,
+      "name": "Dharanidhar Model Crèche",
+      "code": "OD/KJR/1024",
+      "district": "Keonjhar",
+      "block": "Keonjhar Town",
+      "status": "Healthy",
+      "children": 42,
+      "attendance": "96%",
+      "safety": 92
+    }
   ],
   "children": [
-    { "id": "CH-2000", "name": "Aarav Patra", "age": "1y", "gender": "F", "creche": "Joda Shishu Crèche", "riskScore": 30, "attendance": "71%", "status": "Healthy", "height": "87 cm", "weight": "12 kg", "vaccinated": "Pending", "guardian": "Guardian 1" },
-    { "id": "CH-2001", "name": "Diya Sahoo", "age": "5y", "gender": "F", "creche": "Champua Ananda Kendra", "riskScore": 13, "attendance": "92%", "status": "Healthy", "height": "110 cm", "weight": "18 kg", "vaccinated": "Completed", "guardian": "Guardian 2" },
-    { "id": "CH-2002", "name": "Ishaan Das", "age": "4y", "gender": "M", "creche": "Anandapur Surya Crèche", "riskScore": 97, "attendance": "73%", "status": "Alert", "height": "102 cm", "weight": "14 kg", "vaccinated": "Pending", "guardian": "Guardian 3" },
-    { "id": "CH-2003", "name": "Kavya Mishra", "age": "3y", "gender": "M", "creche": "Ghatagaon Tarini Crèche", "riskScore": 80, "attendance": "94%", "status": "Alert", "height": "94 cm", "weight": "13 kg", "vaccinated": "Completed", "guardian": "Guardian 4" },
-    { "id": "CH-2004", "name": "Riya Mohanty", "age": "2y", "gender": "F", "creche": "Harichandanpur Shishu Kendra", "riskScore": 64, "attendance": "75%", "status": "Monitoring", "height": "88 cm", "weight": "11 kg", "vaccinated": "Pending", "guardian": "Guardian 5" },
-    { "id": "CH-2005", "name": "Aditya Patra", "age": "1y", "gender": "F", "creche": "Telkoi Konark Crèche", "riskScore": 47, "attendance": "97%", "status": "Monitoring", "height": "82 cm", "weight": "10 kg", "vaccinated": "Completed", "guardian": "Guardian 6" },
-    { "id": "CH-2006", "name": "Sara Sahoo", "age": "5y", "gender": "M", "creche": "Banspal Lotus Crèche", "riskScore": 31, "attendance": "78%", "status": "Healthy", "height": "108 cm", "weight": "17 kg", "vaccinated": "Completed", "guardian": "Guardian 7" },
-    { "id": "CH-2007", "name": "Vihaan Das", "age": "4y", "gender": "M", "creche": "Jhumpura Asha Kendra", "riskScore": 15, "attendance": "99%", "status": "Healthy", "height": "105 cm", "weight": "16 kg", "vaccinated": "Completed", "guardian": "Guardian 8" },
-    { "id": "CH-2008", "name": "Ananya Mishra", "age": "3y", "gender": "M", "creche": "Saharpada Shishu Kendra", "riskScore": 98, "attendance": "80%", "status": "Alert", "height": "95 cm", "weight": "12 kg", "vaccinated": "Pending", "guardian": "Guardian 9" },
-    { "id": "CH-2009", "name": "Arjun Mohanty", "age": "2y", "gender": "F", "creche": "Patna Ananda Crèche", "riskScore": 82, "attendance": "61%", "status": "Alert", "height": "86 cm", "weight": "10.5 kg", "vaccinated": "Pending", "guardian": "Guardian 10" },
-    { "id": "CH-2010", "name": "Mira Patra", "age": "1y", "gender": "F", "creche": "Hatadihi Surya Crèche", "riskScore": 65, "attendance": "82%", "status": "Monitoring", "height": "80 cm", "weight": "9.5 kg", "vaccinated": "Pending", "guardian": "Guardian 11" },
-    { "id": "CH-2011", "name": "Keonjhargarh Central Crèche", "age": "4y", "gender": "M", "creche": "Keonjhargarh Central Crèche", "riskScore": 28, "attendance": "95%", "status": "Healthy", "height": "103 cm", "weight": "15.5 kg", "vaccinated": "Completed", "guardian": "Guardian 12" },
-    { "id": "CH-2012", "name": "Suhana Sahoo", "age": "3y", "gender": "F", "creche": "Barbil Steel City Crèche", "riskScore": 42, "attendance": "88%", "status": "Monitoring", "height": "93 cm", "weight": "12.5 kg", "vaccinated": "Completed", "guardian": "Guardian 13" },
-    { "id": "CH-2013", "name": "Reyansh Mishra", "age": "2y", "gender": "M", "creche": "Kashipur Shishu Kendra", "riskScore": 78, "attendance": "72%", "status": "Alert", "height": "89 cm", "weight": "11.8 kg", "vaccinated": "Pending", "guardian": "Guardian 14" },
-    { "id": "CH-2014", "name": "Myra Patra", "age": "1y", "gender": "F", "creche": "Ghasipura Ananda Crèche", "riskScore": 20, "attendance": "96%", "status": "Healthy", "height": "81 cm", "weight": "10.1 kg", "vaccinated": "Completed", "guardian": "Guardian 15" },
-    { "id": "CH-2015", "name": "Aarush Mohanty", "age": "5y", "gender": "M", "creche": "Kenduapada Tarini Kendra", "riskScore": 85, "attendance": "79%", "status": "Alert", "height": "109 cm", "weight": "17.2 kg", "vaccinated": "Pending", "guardian": "Guardian 16" },
-    { "id": "CH-2016", "name": "Aisha Sahoo", "age": "4y", "gender": "F", "creche": "Daitari Mining Crèche", "riskScore": 12, "attendance": "94%", "status": "Healthy", "height": "101 cm", "weight": "15.0 kg", "vaccinated": "Completed", "guardian": "Guardian 17" },
-    { "id": "CH-2017", "name": "Vihaan Patra", "age": "3y", "gender": "M", "creche": "Kanjipani Hilltop Crèche", "riskScore": 53, "attendance": "81%", "status": "Monitoring", "height": "94 cm", "weight": "13.2 kg", "vaccinated": "Completed", "guardian": "Guardian 18" },
-    { "id": "CH-2018", "name": "Ananya Das", "age": "2y", "gender": "F", "creche": "Suakati Tribal Kendra", "riskScore": 91, "attendance": "67%", "status": "Alert", "height": "88 cm", "weight": "11.0 kg", "vaccinated": "Pending", "guardian": "Guardian 19" }
+    {
+      "id": "CH-2000",
+      "name": "Aarav Patra",
+      "age": "1y",
+      "gender": "F",
+      "creche": "Joda Shishu Crèche",
+      "riskScore": 30,
+      "attendance": "71%",
+      "status": "Healthy",
+      "height": "87 cm",
+      "weight": "12 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 1"
+    },
+    {
+      "id": "CH-2001",
+      "name": "Diya Sahoo",
+      "age": "5y",
+      "gender": "F",
+      "creche": "Champua Ananda Kendra",
+      "riskScore": 13,
+      "attendance": "92%",
+      "status": "Healthy",
+      "height": "110 cm",
+      "weight": "18 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 2"
+    },
+    {
+      "id": "CH-2002",
+      "name": "Ishaan Das",
+      "age": "4y",
+      "gender": "M",
+      "creche": "Anandapur Surya Crèche",
+      "riskScore": 97,
+      "attendance": "73%",
+      "status": "Alert",
+      "height": "102 cm",
+      "weight": "14 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 3"
+    },
+    {
+      "id": "CH-2003",
+      "name": "Kavya Mishra",
+      "age": "3y",
+      "gender": "M",
+      "creche": "Ghatagaon Tarini Crèche",
+      "riskScore": 80,
+      "attendance": "94%",
+      "status": "Alert",
+      "height": "94 cm",
+      "weight": "13 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 4"
+    },
+    {
+      "id": "CH-2004",
+      "name": "Riya Mohanty",
+      "age": "2y",
+      "gender": "F",
+      "creche": "Harichandanpur Shishu Kendra",
+      "riskScore": 64,
+      "attendance": "75%",
+      "status": "Monitoring",
+      "height": "88 cm",
+      "weight": "11 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 5"
+    },
+    {
+      "id": "CH-2005",
+      "name": "Aditya Patra",
+      "age": "1y",
+      "gender": "F",
+      "creche": "Telkoi Konark Crèche",
+      "riskScore": 47,
+      "attendance": "97%",
+      "status": "Monitoring",
+      "height": "82 cm",
+      "weight": "10 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 6"
+    },
+    {
+      "id": "CH-2006",
+      "name": "Sara Sahoo",
+      "age": "5y",
+      "gender": "M",
+      "creche": "Banspal Lotus Crèche",
+      "riskScore": 31,
+      "attendance": "78%",
+      "status": "Healthy",
+      "height": "108 cm",
+      "weight": "17 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 7"
+    },
+    {
+      "id": "CH-2007",
+      "name": "Vihaan Das",
+      "age": "4y",
+      "gender": "M",
+      "creche": "Jhumpura Asha Kendra",
+      "riskScore": 15,
+      "attendance": "99%",
+      "status": "Healthy",
+      "height": "105 cm",
+      "weight": "16 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 8"
+    },
+    {
+      "id": "CH-2008",
+      "name": "Ananya Mishra",
+      "age": "3y",
+      "gender": "M",
+      "creche": "Saharpada Shishu Kendra",
+      "riskScore": 98,
+      "attendance": "80%",
+      "status": "Alert",
+      "height": "95 cm",
+      "weight": "12 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 9"
+    },
+    {
+      "id": "CH-2009",
+      "name": "Arjun Mohanty",
+      "age": "2y",
+      "gender": "F",
+      "creche": "Patna Ananda Crèche",
+      "riskScore": 82,
+      "attendance": "61%",
+      "status": "Alert",
+      "height": "86 cm",
+      "weight": "10.5 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 10"
+    },
+    {
+      "id": "CH-2010",
+      "name": "Mira Patra",
+      "age": "1y",
+      "gender": "F",
+      "creche": "Hatadihi Surya Crèche",
+      "riskScore": 65,
+      "attendance": "82%",
+      "status": "Monitoring",
+      "height": "80 cm",
+      "weight": "9.5 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 11"
+    },
+    {
+      "id": "CH-2011",
+      "name": "Keonjhargarh Central Crèche",
+      "age": "4y",
+      "gender": "M",
+      "creche": "Keonjhargarh Central Crèche",
+      "riskScore": 28,
+      "attendance": "95%",
+      "status": "Healthy",
+      "height": "103 cm",
+      "weight": "15.5 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 12"
+    },
+    {
+      "id": "CH-2012",
+      "name": "Suhana Sahoo",
+      "age": "3y",
+      "gender": "F",
+      "creche": "Barbil Steel City Crèche",
+      "riskScore": 42,
+      "attendance": "88%",
+      "status": "Monitoring",
+      "height": "93 cm",
+      "weight": "12.5 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 13"
+    },
+    {
+      "id": "CH-2013",
+      "name": "Reyansh Mishra",
+      "age": "2y",
+      "gender": "M",
+      "creche": "Kashipur Shishu Kendra",
+      "riskScore": 78,
+      "attendance": "72%",
+      "status": "Alert",
+      "height": "89 cm",
+      "weight": "11.8 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 14"
+    },
+    {
+      "id": "CH-2014",
+      "name": "Myra Patra",
+      "age": "1y",
+      "gender": "F",
+      "creche": "Ghasipura Ananda Crèche",
+      "riskScore": 20,
+      "attendance": "96%",
+      "status": "Healthy",
+      "height": "81 cm",
+      "weight": "10.1 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 15"
+    },
+    {
+      "id": "CH-2015",
+      "name": "Aarush Mohanty",
+      "age": "5y",
+      "gender": "M",
+      "creche": "Kenduapada Tarini Kendra",
+      "riskScore": 85,
+      "attendance": "79%",
+      "status": "Alert",
+      "height": "109 cm",
+      "weight": "17.2 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 16"
+    },
+    {
+      "id": "CH-2016",
+      "name": "Aisha Sahoo",
+      "age": "4y",
+      "gender": "F",
+      "creche": "Daitari Mining Crèche",
+      "riskScore": 12,
+      "attendance": "94%",
+      "status": "Healthy",
+      "height": "101 cm",
+      "weight": "15.0 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 17"
+    },
+    {
+      "id": "CH-2017",
+      "name": "Vihaan Patra",
+      "age": "3y",
+      "gender": "M",
+      "creche": "Kanjipani Hilltop Crèche",
+      "riskScore": 53,
+      "attendance": "81%",
+      "status": "Monitoring",
+      "height": "94 cm",
+      "weight": "13.2 kg",
+      "vaccinated": "Completed",
+      "guardian": "Guardian 18"
+    },
+    {
+      "id": "CH-2018",
+      "name": "Ananya Das",
+      "age": "2y",
+      "gender": "F",
+      "creche": "Suakati Tribal Kendra",
+      "riskScore": 91,
+      "attendance": "67%",
+      "status": "Alert",
+      "height": "88 cm",
+      "weight": "11.0 kg",
+      "vaccinated": "Pending",
+      "guardian": "Guardian 19"
+    }
   ],
   "crecheOptions": [
     "Joda Shishu Crèche",
@@ -73,58 +560,1165 @@
     "Dharanidhar Model Crèche"
   ],
   "overviewTrendData": [
-    { "month": "Jan", "topMetric": 95, "bottomMetric": 18 },
-    { "month": "Feb", "topMetric": 96, "bottomMetric": 18 },
-    { "month": "Mar", "topMetric": 98, "bottomMetric": 18 },
-    { "month": "Apr", "topMetric": 99, "bottomMetric": 18 },
-    { "month": "May", "topMetric": 99, "bottomMetric": 17 },
-    { "month": "Jun", "topMetric": 98, "bottomMetric": 17 },
-    { "month": "Jul", "topMetric": 97, "bottomMetric": 17 },
-    { "month": "Aug", "topMetric": 96, "bottomMetric": 17 },
-    { "month": "Sep", "topMetric": 94, "bottomMetric": 18 },
-    { "month": "Oct", "topMetric": 94, "bottomMetric": 18 },
-    { "month": "Nov", "topMetric": 95, "bottomMetric": 19 },
-    { "month": "Dec", "topMetric": 96, "bottomMetric": 19 }
+    {
+      "month": "Jan",
+      "topMetric": 95,
+      "bottomMetric": 18
+    },
+    {
+      "month": "Feb",
+      "topMetric": 96,
+      "bottomMetric": 18
+    },
+    {
+      "month": "Mar",
+      "topMetric": 98,
+      "bottomMetric": 18
+    },
+    {
+      "month": "Apr",
+      "topMetric": 99,
+      "bottomMetric": 18
+    },
+    {
+      "month": "May",
+      "topMetric": 99,
+      "bottomMetric": 17
+    },
+    {
+      "month": "Jun",
+      "topMetric": 98,
+      "bottomMetric": 17
+    },
+    {
+      "month": "Jul",
+      "topMetric": 97,
+      "bottomMetric": 17
+    },
+    {
+      "month": "Aug",
+      "topMetric": 96,
+      "bottomMetric": 17
+    },
+    {
+      "month": "Sep",
+      "topMetric": 94,
+      "bottomMetric": 18
+    },
+    {
+      "month": "Oct",
+      "topMetric": 94,
+      "bottomMetric": 18
+    },
+    {
+      "month": "Nov",
+      "topMetric": 95,
+      "bottomMetric": 19
+    },
+    {
+      "month": "Dec",
+      "topMetric": 96,
+      "bottomMetric": 19
+    }
   ],
   "growthCurveData": [
-    { "name": "12m", "standard": 9.2, "actual": 9.0 },
-    { "name": "24m", "standard": 11.5, "actual": 11.0 },
-    { "name": "36m", "standard": 13.9, "actual": 12.8 },
-    { "name": "48m", "standard": 16.1, "actual": 15.2 },
-    { "name": "60m", "standard": 18.2, "actual": 17.5 }
+    {
+      "name": "12m",
+      "standard": 9.2,
+      "actual": 9
+    },
+    {
+      "name": "24m",
+      "standard": 11.5,
+      "actual": 11
+    },
+    {
+      "name": "36m",
+      "standard": 13.9,
+      "actual": 12.8
+    },
+    {
+      "name": "48m",
+      "standard": 16.1,
+      "actual": 15.2
+    },
+    {
+      "name": "60m",
+      "standard": 18.2,
+      "actual": 17.5
+    }
   ],
   "complianceData": [
-    { "name": "Champua Ananda Kendra", "compliance": 97, "iconBg": "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 border-emerald-100/50" },
-    { "name": "Joda Shishu Crèche", "compliance": 92, "iconBg": "bg-sky-50 text-sky-600 dark:bg-sky-950/20 dark:text-sky-400 border-sky-100/50" },
-    { "name": "Anandapur Surya Crèche", "compliance": 85, "iconBg": "bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 border-amber-100/50" },
-    { "name": "Ghatagaon Tarini Crèche", "compliance": 74, "iconBg": "bg-orange-50 text-orange-600 dark:bg-orange-950/20 dark:text-orange-400 border-orange-100/50" },
-    { "name": "Harichandanpur Shishu Kendra", "compliance": 61, "iconBg": "bg-rose-50 text-rose-600 dark:bg-rose-950/20 dark:text-rose-400 border-rose-100/50" },
-    { "name": "Telkoi Konark Crèche", "compliance": 58, "iconBg": "bg-purple-50 text-purple-600 dark:bg-purple-950/20 dark:text-purple-400 border-purple-100/50" },
-    { "name": "Banspal Lotus Crèche", "compliance": 94, "iconBg": "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 border-emerald-100/50" },
-    { "name": "Jhumpura Asha Kendra", "compliance": 88, "iconBg": "bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 border-amber-100/50" },
-    { "name": "Saharpada Shishu Kendra", "compliance": 79, "iconBg": "bg-orange-50 text-orange-600 dark:bg-orange-950/20 dark:text-orange-400 border-orange-100/50" },
-    { "name": "Patna Ananda Crèche", "compliance": 65, "iconBg": "bg-rose-50 text-rose-600 dark:bg-rose-950/20 dark:text-rose-400 border-rose-100/50" },
-    { "name": "Hatadihi Surya Crèche", "compliance": 91, "iconBg": "bg-sky-50 text-sky-600 dark:bg-sky-950/20 dark:text-sky-400 border-sky-100/50" },
-    { "name": "Keonjhargarh Central Crèche", "compliance": 82, "iconBg": "bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 border-amber-100/50" }
+    {
+      "name": "Champua Ananda Kendra",
+      "compliance": 97,
+      "iconBg": "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 border-emerald-100/50"
+    },
+    {
+      "name": "Joda Shishu Crèche",
+      "compliance": 92,
+      "iconBg": "bg-sky-50 text-sky-600 dark:bg-sky-950/20 dark:text-sky-400 border-sky-100/50"
+    },
+    {
+      "name": "Anandapur Surya Crèche",
+      "compliance": 85,
+      "iconBg": "bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 border-amber-100/50"
+    },
+    {
+      "name": "Ghatagaon Tarini Crèche",
+      "compliance": 74,
+      "iconBg": "bg-orange-50 text-orange-600 dark:bg-orange-950/20 dark:text-orange-400 border-orange-100/50"
+    },
+    {
+      "name": "Harichandanpur Shishu Kendra",
+      "compliance": 61,
+      "iconBg": "bg-rose-50 text-rose-600 dark:bg-rose-950/20 dark:text-rose-400 border-rose-100/50"
+    },
+    {
+      "name": "Telkoi Konark Crèche",
+      "compliance": 58,
+      "iconBg": "bg-purple-50 text-purple-600 dark:bg-purple-950/20 dark:text-purple-400 border-purple-100/50"
+    },
+    {
+      "name": "Banspal Lotus Crèche",
+      "compliance": 94,
+      "iconBg": "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/20 dark:text-emerald-400 border-emerald-100/50"
+    },
+    {
+      "name": "Jhumpura Asha Kendra",
+      "compliance": 88,
+      "iconBg": "bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 border-amber-100/50"
+    },
+    {
+      "name": "Saharpada Shishu Kendra",
+      "compliance": 79,
+      "iconBg": "bg-orange-50 text-orange-600 dark:bg-orange-950/20 dark:text-orange-400 border-orange-100/50"
+    },
+    {
+      "name": "Patna Ananda Crèche",
+      "compliance": 65,
+      "iconBg": "bg-rose-50 text-rose-600 dark:bg-rose-950/20 dark:text-rose-400 border-rose-100/50"
+    },
+    {
+      "name": "Hatadihi Surya Crèche",
+      "compliance": 91,
+      "iconBg": "bg-sky-50 text-sky-600 dark:bg-sky-950/20 dark:text-sky-400 border-sky-100/50"
+    },
+    {
+      "name": "Keonjhargarh Central Crèche",
+      "compliance": 82,
+      "iconBg": "bg-amber-50 text-amber-600 dark:bg-amber-950/20 dark:text-amber-400 border-amber-100/50"
+    }
   ],
   "recentUploads": [
-    { "id": 1, "creche": "Keonjhargarh Central Crèche", "desc": "Dal + Rice + Egg", "time": "12:32 PM", "status": "Approved" },
-    { "id": 2, "creche": "Ghatagaon Tarini Crèche", "desc": "Khichdi + Banana", "time": "12:18 PM", "status": "Approved" },
-    { "id": 3, "creche": "Suakati Tribal Kendra", "desc": "Sambar + Rice", "time": "11:55 AM", "status": "Investigating" },
-    { "id": 4, "creche": "Telkoi Konark Crèche", "desc": "- · -", "time": "", "status": "New" }
+    {
+      "id": 1,
+      "creche": "Keonjhargarh Central Crèche",
+      "desc": "Dal + Rice + Egg",
+      "time": "12:32 PM",
+      "status": "Approved"
+    },
+    {
+      "id": 2,
+      "creche": "Ghatagaon Tarini Crèche",
+      "desc": "Khichdi + Banana",
+      "time": "12:18 PM",
+      "status": "Approved"
+    },
+    {
+      "id": 3,
+      "creche": "Suakati Tribal Kendra",
+      "desc": "Sambar + Rice",
+      "time": "11:55 AM",
+      "status": "Investigating"
+    },
+    {
+      "id": 4,
+      "creche": "Telkoi Konark Crèche",
+      "desc": "- · -",
+      "time": "",
+      "status": "New"
+    }
   ],
   "safetyAlerts": [
-    { "id": "det-1", "type": "Critical", "time": "2 min ago", "title": "Unauthorized entry", "camera": "CAM-104", "creche": "Telkoi Konark Crèche", "confidence": 95 },
-    { "id": "det-2", "type": "High", "time": "14 min ago", "title": "Fall detected", "camera": "CAM-218", "creche": "Keonjhargarh Central Crèche", "confidence": 88 },
-    { "id": "det-3", "type": "Medium", "time": "32 min ago", "title": "Crowd density", "camera": "CAM-052", "creche": "Joda Shishu Crèche", "confidence": 79 },
-    { "id": "det-4", "type": "High", "time": "1 hr ago", "title": "Distress signal", "camera": "CAM-310", "creche": "Anandapur Surya Crèche", "confidence": 91 }
+    {
+      "id": "det-1",
+      "type": "Critical",
+      "time": "2 min ago",
+      "title": "Unauthorized entry",
+      "camera": "CAM-104",
+      "creche": "Telkoi Konark Crèche",
+      "confidence": 95
+    },
+    {
+      "id": "det-2",
+      "type": "High",
+      "time": "14 min ago",
+      "title": "Fall detected",
+      "camera": "CAM-218",
+      "creche": "Keonjhargarh Central Crèche",
+      "confidence": 88
+    },
+    {
+      "id": "det-3",
+      "type": "Medium",
+      "time": "32 min ago",
+      "title": "Crowd density",
+      "camera": "CAM-052",
+      "creche": "Joda Shishu Crèche",
+      "confidence": 79
+    },
+    {
+      "id": "det-4",
+      "type": "High",
+      "time": "1 hr ago",
+      "title": "Distress signal",
+      "camera": "CAM-310",
+      "creche": "Anandapur Surya Crèche",
+      "confidence": 91
+    }
   ],
   "healthAlerts": [
-    { "id": "h-1", "initials": "I", "name": "Ishaan Das", "risk": 97, "age": "4y", "type": "Critical", "time": "2 min ago" },
-    { "id": "h-2", "initials": "K", "name": "Kavya Mishra", "risk": 80, "age": "3y", "type": "High", "time": "14 min ago" },
-    { "id": "h-3", "initials": "A", "name": "Ananya Mishra", "risk": 98, "age": "3y", "type": "Critical", "time": "32 min ago" },
-    { "id": "h-4", "initials": "A", "name": "Arjun Mohanty", "risk": 82, "age": "2y", "type": "High", "time": "1 hr ago" }
+    {
+      "id": "h-1",
+      "initials": "I",
+      "name": "Ishaan Das",
+      "risk": 97,
+      "age": "4y",
+      "type": "Critical",
+      "time": "2 min ago"
+    },
+    {
+      "id": "h-2",
+      "initials": "K",
+      "name": "Kavya Mishra",
+      "risk": 80,
+      "age": "3y",
+      "type": "High",
+      "time": "14 min ago"
+    },
+    {
+      "id": "h-3",
+      "initials": "A",
+      "name": "Ananya Mishra",
+      "risk": 98,
+      "age": "3y",
+      "type": "Critical",
+      "time": "32 min ago"
+    },
+    {
+      "id": "h-4",
+      "initials": "A",
+      "name": "Arjun Mohanty",
+      "risk": 82,
+      "age": "2y",
+      "type": "High",
+      "time": "1 hr ago"
+    }
   ],
-  "blueCohortData": [75, 77, 79, 81, 83, 85, 87, 89, 91, 93, 95, 97],
-  "greenCohortData": [55, 58, 60, 63, 66, 68, 70, 73, 76, 78, 81, 83]
+  "blueCohortData": [
+    75,
+    77,
+    79,
+    81,
+    83,
+    85,
+    87,
+    89,
+    91,
+    93,
+    95,
+    97
+  ],
+  "greenCohortData": [
+    55,
+    58,
+    60,
+    63,
+    66,
+    68,
+    70,
+    73,
+    76,
+    78,
+    81,
+    83
+  ],
+  "dashboardTrendData": [
+    {
+      "month": "Jan",
+      "attendance": 72,
+      "nutrition": 70,
+      "incidents": 30
+    },
+    {
+      "month": "Feb",
+      "attendance": 74,
+      "nutrition": 71,
+      "incidents": 28
+    },
+    {
+      "month": "Mar",
+      "attendance": 78,
+      "nutrition": 72,
+      "incidents": 27
+    },
+    {
+      "month": "Apr",
+      "attendance": 80,
+      "nutrition": 70,
+      "incidents": 25
+    },
+    {
+      "month": "May",
+      "attendance": 81,
+      "nutrition": 68,
+      "incidents": 24
+    },
+    {
+      "month": "Jun",
+      "attendance": 78,
+      "nutrition": 65,
+      "incidents": 23
+    },
+    {
+      "month": "Jul",
+      "attendance": 74,
+      "nutrition": 63,
+      "incidents": 22
+    },
+    {
+      "month": "Aug",
+      "attendance": 72,
+      "nutrition": 64,
+      "incidents": 23
+    },
+    {
+      "month": "Sep",
+      "attendance": 71,
+      "nutrition": 67,
+      "incidents": 24
+    },
+    {
+      "month": "Oct",
+      "attendance": 73,
+      "nutrition": 71,
+      "incidents": 25
+    },
+    {
+      "month": "Nov",
+      "attendance": 76,
+      "nutrition": 74,
+      "incidents": 26
+    },
+    {
+      "month": "Dec",
+      "attendance": 78,
+      "nutrition": 76,
+      "incidents": 27
+    }
+  ],
+  "dashboardRiskData": [
+    {
+      "name": "Healthy",
+      "value": 24,
+      "color": "#22c55e"
+    },
+    {
+      "name": "Warning",
+      "value": 16,
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Critical",
+      "value": 8,
+      "color": "#ef4444"
+    }
+  ],
+  "aiInsightsData": [
+    {
+      "id": 1,
+      "type": "Critical",
+      "time": "just now",
+      "title": "Nutrition gap predicted in 14 crèches",
+      "description": "Model forecasts a 22% drop in meal compliance in Joda Block over the next 7 days based on supply patterns.",
+      "actionText": "Trigger supply review →",
+      "badgeBg": "bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-900/30",
+      "dotBg": "bg-rose-500"
+    },
+    {
+      "id": 2,
+      "type": "Warning",
+      "time": "just now",
+      "title": "Attendance anomaly in Block C",
+      "description": "Attendance dropped 18% vs 4-week average. Likely cause: seasonal migration.",
+      "actionText": "Schedule field visit →",
+      "badgeBg": "bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border-amber-100 dark:border-amber-900/30",
+      "dotBg": "bg-amber-500"
+    },
+    {
+      "id": 3,
+      "type": "Info",
+      "time": "just now",
+      "title": "Vaccination drive recommendation",
+      "description": "36 children in Keonjhar district approaching DPT booster window.",
+      "actionText": "Generate schedule →",
+      "badgeBg": "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200/60 dark:border-slate-700/50",
+      "dotBg": "bg-slate-400"
+    }
+  ],
+  "recentActivityData": [
+    {
+      "id": 1,
+      "avatar": "IR",
+      "user": "Insp. Rao",
+      "action": "submitted inspection for",
+      "target": "Shishu Crèche 12",
+      "time": "2 min ago"
+    },
+    {
+      "id": 2,
+      "avatar": "AE",
+      "user": "AI Engine",
+      "action": "flagged risk on",
+      "target": "CH-2073",
+      "time": "8 min ago"
+    },
+    {
+      "id": 3,
+      "avatar": "DA",
+      "user": "District Admin",
+      "action": "approved meal plan for",
+      "target": "Block B",
+      "time": "22 min ago"
+    },
+    {
+      "id": 4,
+      "avatar": "C",
+      "user": "CCTV-AI",
+      "action": "detected unauthorized entry at",
+      "target": "Surya Crèche 4",
+      "time": "45 min ago"
+    },
+    {
+      "id": 5,
+      "avatar": "PA",
+      "user": "PMU Admin",
+      "action": "published new protocol",
+      "target": "Vaccination 2026",
+      "time": "1 hr ago"
+    },
+    {
+      "id": 6,
+      "avatar": "IS",
+      "user": "Insp. Singh",
+      "action": "started inspection of",
+      "target": "Tara Crèche 19",
+      "time": "2 hr ago"
+    }
+  ],
+  "cctvFeedsData": [
+    {
+      "id": "CAM-100",
+      "name": "Joda Shishu Crèche"
+    },
+    {
+      "id": "CAM-101",
+      "name": "Champua Ananda Kendra"
+    },
+    {
+      "id": "CAM-102",
+      "name": "Anandapur Surya Crèche"
+    },
+    {
+      "id": "CAM-103",
+      "name": "Ghatagaon Tarini Crèche"
+    }
+  ],
+  "attendanceTrendData": [
+    {
+      "name": "Mon",
+      "percentage": 81.2
+    },
+    {
+      "name": "Tue",
+      "percentage": 83.5
+    },
+    {
+      "name": "Wed",
+      "percentage": 82.4
+    },
+    {
+      "name": "Thu",
+      "percentage": 84.1
+    },
+    {
+      "name": "Fri",
+      "percentage": 82
+    },
+    {
+      "name": "Sat",
+      "percentage": 78.5
+    }
+  ],
+  "crecheDetailTrendData": [
+    {
+      "month": "Jan",
+      "attendance": 70,
+      "nutrition": 70
+    },
+    {
+      "month": "Feb",
+      "attendance": 75,
+      "nutrition": 68
+    },
+    {
+      "month": "Mar",
+      "attendance": 78,
+      "nutrition": 67
+    },
+    {
+      "month": "Apr",
+      "attendance": 80,
+      "nutrition": 65
+    },
+    {
+      "month": "May",
+      "attendance": 82,
+      "nutrition": 64
+    },
+    {
+      "month": "Jun",
+      "attendance": 81,
+      "nutrition": 63
+    },
+    {
+      "month": "Jul",
+      "attendance": 77,
+      "nutrition": 62
+    },
+    {
+      "month": "Aug",
+      "attendance": 74,
+      "nutrition": 64
+    },
+    {
+      "month": "Sep",
+      "attendance": 73,
+      "nutrition": 67
+    },
+    {
+      "month": "Oct",
+      "attendance": 72,
+      "nutrition": 69
+    },
+    {
+      "month": "Nov",
+      "attendance": 75,
+      "nutrition": 73
+    },
+    {
+      "month": "Dec",
+      "attendance": 77,
+      "nutrition": 76
+    }
+  ],
+  "mockChildrenInCreche": [
+    {
+      "id": "CH-101",
+      "name": "Ramesh Kumar",
+      "age": "3y",
+      "gender": "M",
+      "status": "Healthy",
+      "attendance": "94%"
+    },
+    {
+      "id": "CH-102",
+      "name": "Sita Mohapatra",
+      "age": "4y",
+      "gender": "F",
+      "status": "Healthy",
+      "attendance": "91%"
+    },
+    {
+      "id": "CH-103",
+      "name": "Arup Patra",
+      "age": "2y",
+      "gender": "M",
+      "status": "Warning",
+      "attendance": "85%"
+    },
+    {
+      "id": "CH-104",
+      "name": "Liza Pradhan",
+      "age": "5y",
+      "gender": "F",
+      "status": "Critical",
+      "attendance": "76%"
+    },
+    {
+      "id": "CH-105",
+      "name": "Gopal Dash",
+      "age": "3y",
+      "gender": "M",
+      "status": "Healthy",
+      "attendance": "92%"
+    }
+  ],
+  "mockStaffInCreche": [
+    {
+      "name": "Minati Behera",
+      "role": "Lead Caregiver",
+      "status": "Present",
+      "phone": "+91 98XX XXXX91"
+    },
+    {
+      "name": "Sasmita Rout",
+      "role": "Assistant Caregiver",
+      "status": "Present",
+      "phone": "+91 98XX XXXX92"
+    },
+    {
+      "name": "Jyoti Naik",
+      "role": "Nutrition Specialist",
+      "status": "On Leave",
+      "phone": "+91 98XX XXXX93"
+    }
+  ],
+  "childDetailHealthLogs": [
+    {
+      "id": "h1",
+      "type": "Regular Inspection",
+      "desc": "Normal growth rate. Temperature 98.4F. Advised iron rich diet supplements.",
+      "date": "2026-06-15",
+      "status": "Healthy"
+    },
+    {
+      "id": "h2",
+      "type": "Immunization Visit",
+      "desc": "Measles 1 dose administered. Weight log recorded as 12kg (+500g gain).",
+      "date": "2026-03-15",
+      "status": "Healthy"
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-3000",
+      "title": "Unauthorized entry detected",
+      "creche": "Shishu Crèche 1",
+      "category": "Safety",
+      "severity": "High",
+      "status": "Assigned",
+      "assigned": "Insp. Rao",
+      "reported": "2026-06-10 9:00"
+    },
+    {
+      "id": "INC-3001",
+      "title": "Fall detection alert",
+      "creche": "Ananda Crèche 2",
+      "category": "Health",
+      "severity": "High",
+      "status": "New",
+      "assigned": "Insp. Singh",
+      "reported": "2026-06-11 10:07"
+    },
+    {
+      "id": "INC-3002",
+      "title": "Meal quality concern",
+      "creche": "Surya Crèche 3",
+      "category": "Nutrition",
+      "severity": "Medium",
+      "status": "Closed",
+      "assigned": "Insp. Behera",
+      "reported": "2026-06-12 11:14"
+    },
+    {
+      "id": "INC-3003",
+      "title": "Child distress signal",
+      "creche": "Tara Crèche 4",
+      "category": "Infrastructure",
+      "severity": "Low",
+      "status": "Resolved",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-06-13 12:21"
+    },
+    {
+      "id": "INC-3004",
+      "title": "Power outage",
+      "creche": "Jagannath Crèche 5",
+      "category": "Safety",
+      "severity": "Low",
+      "status": "Investigating",
+      "assigned": "Insp. Rao",
+      "reported": "2026-06-14 13:28"
+    },
+    {
+      "id": "INC-3005",
+      "title": "Sanitation issue",
+      "creche": "Konark Crèche 6",
+      "category": "Health",
+      "severity": "Critical",
+      "status": "Assigned",
+      "assigned": "Insp. Singh",
+      "reported": "2026-06-15 14:35"
+    },
+    {
+      "id": "INC-3006",
+      "title": "Staff absence",
+      "creche": "Lotus Crèche 7",
+      "category": "Nutrition",
+      "severity": "High",
+      "status": "New",
+      "assigned": "Insp. Behera",
+      "reported": "2026-06-16 15:42"
+    },
+    {
+      "id": "INC-3007",
+      "title": "Equipment failure",
+      "creche": "Asha Crèche 8",
+      "category": "Infrastructure",
+      "severity": "High",
+      "status": "Closed",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-06-17 16:49"
+    },
+    {
+      "id": "INC-3008",
+      "title": "Unauthorized entry detected",
+      "creche": "Shishu Crèche 9",
+      "category": "Safety",
+      "severity": "Medium",
+      "status": "Resolved",
+      "assigned": "Insp. Rao",
+      "reported": "2026-06-18 17:56"
+    },
+    {
+      "id": "INC-3009",
+      "title": "Fall detection alert",
+      "creche": "Ananda Crèche 10",
+      "category": "Health",
+      "severity": "Low",
+      "status": "Investigating",
+      "assigned": "Insp. Singh",
+      "reported": "2026-06-19 9:03"
+    },
+    {
+      "id": "INC-3010",
+      "title": "Meal quality concern",
+      "creche": "Surya Crèche 11",
+      "category": "Nutrition",
+      "severity": "Low",
+      "status": "Assigned",
+      "assigned": "Insp. Behera",
+      "reported": "2026-06-20 10:10"
+    },
+    {
+      "id": "INC-3011",
+      "title": "Fire alarm trigger",
+      "creche": "Tara Crèche 12",
+      "category": "Safety",
+      "severity": "Critical",
+      "status": "New",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-06-21 11:20"
+    },
+    {
+      "id": "INC-3012",
+      "title": "Water supply failure",
+      "creche": "Jagannath Crèche 13",
+      "category": "Infrastructure",
+      "severity": "Medium",
+      "status": "Investigating",
+      "assigned": "Insp. Rao",
+      "reported": "2026-06-22 12:45"
+    },
+    {
+      "id": "INC-3013",
+      "title": "First aid dispatch",
+      "creche": "Konark Crèche 14",
+      "category": "Health",
+      "severity": "Low",
+      "status": "Resolved",
+      "assigned": "Insp. Singh",
+      "reported": "2026-06-23 13:15"
+    },
+    {
+      "id": "INC-3014",
+      "title": "Spoiled meal report",
+      "creche": "Lotus Crèche 15",
+      "category": "Nutrition",
+      "severity": "High",
+      "status": "Closed",
+      "assigned": "Insp. Behera",
+      "reported": "2026-06-24 14:05"
+    },
+    {
+      "id": "INC-3015",
+      "title": "Intruder warning",
+      "creche": "Asha Crèche 16",
+      "category": "Safety",
+      "severity": "Critical",
+      "status": "Assigned",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-06-25 15:30"
+    },
+    {
+      "id": "INC-3016",
+      "title": "Fever outbreak",
+      "creche": "Shishu Crèche 17",
+      "category": "Health",
+      "severity": "High",
+      "status": "New",
+      "assigned": "Insp. Rao",
+      "reported": "2026-06-26 16:12"
+    },
+    {
+      "id": "INC-3017",
+      "title": "Broken window pane",
+      "creche": "Ananda Crèche 18",
+      "category": "Infrastructure",
+      "severity": "Low",
+      "status": "Resolved",
+      "assigned": "Insp. Singh",
+      "reported": "2026-06-27 17:00"
+    },
+    {
+      "id": "INC-3018",
+      "title": "Hygiene checklist failure",
+      "creche": "Surya Crèche 19",
+      "category": "Health",
+      "severity": "Medium",
+      "status": "Investigating",
+      "assigned": "Insp. Behera",
+      "reported": "2026-06-28 08:30"
+    },
+    {
+      "id": "INC-3019",
+      "title": "Nutrition deficit alert",
+      "creche": "Tara Crèche 20",
+      "category": "Nutrition",
+      "severity": "High",
+      "status": "Assigned",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-06-29 09:15"
+    },
+    {
+      "id": "INC-3020",
+      "title": "Gate lock malfunction",
+      "creche": "Jagannath Crèche 21",
+      "category": "Safety",
+      "severity": "Medium",
+      "status": "New",
+      "assigned": "Insp. Rao",
+      "reported": "2026-06-30 10:45"
+    },
+    {
+      "id": "INC-3021",
+      "title": "Respiratory virus warning",
+      "creche": "Konark Crèche 22",
+      "category": "Health",
+      "severity": "Critical",
+      "status": "Investigating",
+      "assigned": "Insp. Singh",
+      "reported": "2026-07-01 11:20"
+    },
+    {
+      "id": "INC-3022",
+      "title": "Pest control needed",
+      "creche": "Lotus Crèche 23",
+      "category": "Infrastructure",
+      "severity": "Low",
+      "status": "Resolved",
+      "assigned": "Insp. Behera",
+      "reported": "2026-07-02 12:00"
+    },
+    {
+      "id": "INC-3023",
+      "title": "Expired food stock",
+      "creche": "Asha Crèche 24",
+      "category": "Nutrition",
+      "severity": "High",
+      "status": "Assigned",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-07-03 13:40"
+    },
+    {
+      "id": "INC-3024",
+      "title": "CCTV offline alert",
+      "creche": "Shishu Crèche 25",
+      "category": "Safety",
+      "severity": "Medium",
+      "status": "Closed",
+      "assigned": "Insp. Rao",
+      "reported": "2026-07-04 14:10"
+    },
+    {
+      "id": "INC-3025",
+      "title": "Heat stroke symptoms",
+      "creche": "Ananda Crèche 26",
+      "category": "Health",
+      "severity": "High",
+      "status": "New",
+      "assigned": "Insp. Singh",
+      "reported": "2026-07-05 15:55"
+    },
+    {
+      "id": "INC-3026",
+      "title": "Roof leakage issue",
+      "creche": "Surya Crèche 27",
+      "category": "Infrastructure",
+      "severity": "Medium",
+      "status": "Investigating",
+      "assigned": "Insp. Behera",
+      "reported": "2026-07-06 16:30"
+    },
+    {
+      "id": "INC-3027",
+      "title": "Underweight child alert",
+      "creche": "Tara Crèche 28",
+      "category": "Nutrition",
+      "severity": "Low",
+      "status": "Resolved",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-07-07 17:15"
+    },
+    {
+      "id": "INC-3028",
+      "title": "Unidentified parcel at gate",
+      "creche": "Jagannath Crèche 29",
+      "category": "Safety",
+      "severity": "High",
+      "status": "Assigned",
+      "assigned": "Insp. Rao",
+      "reported": "2026-07-08 09:10"
+    },
+    {
+      "id": "INC-3029",
+      "title": "Accidental cut/injury",
+      "creche": "Konark Crèche 30",
+      "category": "Health",
+      "severity": "Low",
+      "status": "Closed",
+      "assigned": "Insp. Singh",
+      "reported": "2026-07-09 10:20"
+    },
+    {
+      "id": "INC-3030",
+      "title": "Playground fence broken",
+      "creche": "Lotus Crèche 31",
+      "category": "Infrastructure",
+      "severity": "Medium",
+      "status": "New",
+      "assigned": "Insp. Behera",
+      "reported": "2026-07-10 11:35"
+    },
+    {
+      "id": "INC-3031",
+      "title": "Dietary restriction breach",
+      "creche": "Asha Crèche 32",
+      "category": "Nutrition",
+      "severity": "High",
+      "status": "Investigating",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-07-11 12:50"
+    },
+    {
+      "id": "INC-3032",
+      "title": "Suspected gas leak",
+      "creche": "Shishu Crèche 33",
+      "category": "Safety",
+      "severity": "Critical",
+      "status": "New",
+      "assigned": "Insp. Rao",
+      "reported": "2026-07-12 14:15"
+    },
+    {
+      "id": "INC-3033",
+      "title": "Skin allergy outbreak",
+      "creche": "Ananda Crèche 34",
+      "category": "Health",
+      "severity": "Medium",
+      "status": "Assigned",
+      "assigned": "Insp. Singh",
+      "reported": "2026-07-13 15:30"
+    },
+    {
+      "id": "INC-3034",
+      "title": "Kitchen appliance spark",
+      "creche": "Surya Crèche 35",
+      "category": "Infrastructure",
+      "severity": "High",
+      "status": "Resolved",
+      "assigned": "Insp. Behera",
+      "reported": "2026-07-14 16:45"
+    },
+    {
+      "id": "INC-3035",
+      "title": "Water contamination alert",
+      "creche": "Tara Crèche 36",
+      "category": "Health",
+      "severity": "Critical",
+      "status": "Investigating",
+      "assigned": "Insp. Patnaik",
+      "reported": "2026-07-15 17:50"
+    }
+  ],
+  "inspections": [
+    {
+      "id": "INS-4000",
+      "creche": "Shishu Crèche 1",
+      "inspector": "Insp. Rao",
+      "date": "2026-07-5",
+      "status": "In Progress",
+      "score": 98
+    },
+    {
+      "id": "INS-4001",
+      "creche": "Ananda Crèche 2",
+      "inspector": "Insp. Singh",
+      "date": "2026-07-6",
+      "status": "In Progress",
+      "score": 90
+    },
+    {
+      "id": "INS-4002",
+      "creche": "Surya Crèche 3",
+      "inspector": "Insp. Behera",
+      "date": "2026-07-7",
+      "status": "Scheduled",
+      "score": 82
+    },
+    {
+      "id": "INS-4003",
+      "creche": "Tara Crèche 4",
+      "inspector": "Insp. Patnaik",
+      "date": "2026-07-8",
+      "status": "Approved",
+      "score": 74
+    },
+    {
+      "id": "INS-4004",
+      "creche": "Jagannath Crèche 5",
+      "inspector": "Insp. Rao",
+      "date": "2026-07-9",
+      "status": "Approved",
+      "score": 66
+    },
+    {
+      "id": "INS-4005",
+      "creche": "Konark Crèche 6",
+      "inspector": "Insp. Singh",
+      "date": "2026-07-10",
+      "status": "Submitted",
+      "score": 97
+    },
+    {
+      "id": "INS-4006",
+      "creche": "Lotus Crèche 7",
+      "inspector": "Insp. Behera",
+      "date": "2026-07-11",
+      "status": "In Progress",
+      "score": 89
+    },
+    {
+      "id": "INS-4007",
+      "creche": "Asha Crèche 8",
+      "inspector": "Insp. Patnaik",
+      "date": "2026-07-12",
+      "status": "In Progress",
+      "score": 81
+    },
+    {
+      "id": "INS-4008",
+      "creche": "Shishu Crèche 9",
+      "inspector": "Insp. Rao",
+      "date": "2026-07-13",
+      "status": "Scheduled",
+      "score": 73
+    },
+    {
+      "id": "INS-4009",
+      "creche": "Ananda Crèche 10",
+      "inspector": "Insp. Singh",
+      "date": "2026-07-14",
+      "status": "Approved",
+      "score": 65
+    }
+  ],
+  "reports": [
+    {
+      "id": "RP-001",
+      "name": "Monthly District Summary — June 2026",
+      "type": "District",
+      "date": "2026-06-23",
+      "size": "2.4 MB"
+    },
+    {
+      "id": "RP-002",
+      "name": "Nutrition Compliance — Q2 2026",
+      "type": "Block",
+      "date": "2026-06-20",
+      "size": "1.8 MB"
+    },
+    {
+      "id": "RP-003",
+      "name": "Incident Postmortem — Konark Crèche 7",
+      "type": "Crèche",
+      "date": "2026-06-19",
+      "size": "640 KB"
+    },
+    {
+      "id": "RP-004",
+      "name": "Child Growth Audit — Khordha",
+      "type": "Child",
+      "date": "2026-06-15",
+      "size": "3.1 MB"
+    },
+    {
+      "id": "RP-005",
+      "name": "Vaccination Drive Outcomes — May 2026",
+      "type": "District",
+      "date": "2026-06-02",
+      "size": "1.2 MB"
+    }
+  ],
+  "crecheDetailHealthLogs": [
+    {
+      "id": "hl-1",
+      "type": "Sanitation Check",
+      "desc": "Passed standard checks. Disinfection completed successfully.",
+      "date": "2026-06-25",
+      "status": "Healthy"
+    },
+    {
+      "id": "hl-2",
+      "type": "Water Safety Inspection",
+      "desc": "Water sample taken. pH levels and chlorine within optimal bounds.",
+      "date": "2026-06-18",
+      "status": "Healthy"
+    },
+    {
+      "id": "hl-3",
+      "type": "First Aid Inventory Check",
+      "desc": "Supplies restocked. Paracetamol and bandages replenished.",
+      "date": "2026-06-10",
+      "status": "Healthy"
+    }
+  ],
+  "childActiveAlerts": [
+    {
+      "id": "a1",
+      "title": "Growth Warning",
+      "desc": "Weight gain curve is 12% flatter than typical WHO 50th percentile.",
+      "date": "3 days ago",
+      "type": "Warning"
+    },
+    {
+      "id": "a2",
+      "title": "Vaccination Alert",
+      "desc": "DPT Booster 1 window is active. Scheduled recommendation is overdue by 14 days.",
+      "date": "1 week ago",
+      "type": "Critical"
+    }
+  ]
 }

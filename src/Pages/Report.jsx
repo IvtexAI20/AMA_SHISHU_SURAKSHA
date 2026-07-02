@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import dbData from '../data.json';
 
 export default function Report() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -8,13 +9,7 @@ export default function Report() {
   const [toastType, setToastType] = useState('info'); // 'info' | 'success'
 
   // Mock reports database matching screenshot values exactly
-  const [reports] = useState([
-    { id: 'RP-001', name: 'Monthly District Summary — June 2026', type: 'District', date: '2026-06-23', size: '2.4 MB' },
-    { id: 'RP-002', name: 'Nutrition Compliance — Q2 2026', type: 'Block', date: '2026-06-20', size: '1.8 MB' },
-    { id: 'RP-003', name: 'Incident Postmortem — Konark Crèche 7', type: 'Crèche', date: '2026-06-19', size: '640 KB' },
-    { id: 'RP-004', name: 'Child Growth Audit — Khordha', type: 'Child', date: '2026-06-15', size: '3.1 MB' },
-    { id: 'RP-005', name: 'Vaccination Drive Outcomes — May 2026', type: 'District', date: '2026-06-02', size: '1.2 MB' },
-  ]);
+  const [reports] = useState(dbData.reports);
 
   const triggerToast = (msg) => {
     setToastMsg(msg);
@@ -143,7 +138,7 @@ export default function Report() {
                       <td className="px-6 py-5 text-right whitespace-nowrap">
                         <button
                           onClick={() => handleDownload(report)}
-                          className="inline-flex items-center gap-1.5 text-[#0ea5e9] hover:text-sky-600 font-semibold text-sm transition-colors cursor-pointer select-none"
+                          className="inline-flex items-center gap-1.5 text-[#0ea5e9] hover:text-sky-600 font-semibold text-sm transition-all cursor-pointer select-none premium-btn active:scale-95"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />

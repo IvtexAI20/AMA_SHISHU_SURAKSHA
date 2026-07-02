@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { 
@@ -11,58 +12,51 @@ import {
   Tooltip 
 } from 'recharts';
 
-const initialMockCreches = [
-  { id: 1, code: "OD/CR/1000", name: "Shishu Crèche 1", district: "Khordha", block: "Block A", children: 40, attendance: "91%", safety: 79, status: "Healthy", activityStatus: "Active", phone: "+91 98XX XXXX21", staffCount: 3, incidentsCount: 1, inspectionsCount: 1, lastInspected: "2026-01-10" },
-  { id: 2, code: "OD/CR/1001", name: "Ananda Crèche 2", district: "Cuttack", block: "Block B", children: 22, attendance: "89%", safety: 79, status: "Healthy", activityStatus: "Active", phone: "+91 98XX XXXX22", staffCount: 2, incidentsCount: 2, inspectionsCount: 1, lastInspected: "2026-01-12" },
-  { id: 3, code: "OD/CR/1002", name: "Surya Crèche 3", district: "Puri", block: "Block C", children: 27, attendance: "88%", safety: 78, status: "Warning", activityStatus: "Active", phone: "+91 98XX XXXX23", staffCount: 2, incidentsCount: 3, inspectionsCount: 2, lastInspected: "2026-01-15" },
-  { id: 4, code: "OD/CR/1003", name: "Tara Crèche 4", district: "Ganjam", block: "Block D", children: 32, attendance: "86%", safety: 77, status: "Warning", activityStatus: "Active", phone: "+91 98XX XXXX24", staffCount: 3, incidentsCount: 0, inspectionsCount: 1, lastInspected: "2026-01-18" },
-  { id: 5, code: "OD/CR/1004", name: "Jagannath Crèche 5", district: "Balasore", block: "Block E", children: 30, attendance: "92%", safety: 97, status: "Critical", activityStatus: "Active", phone: "+91 98XX XXXX25", staffCount: 4, incidentsCount: 5, inspectionsCount: 3, lastInspected: "2026-01-20" },
-  { id: 6, code: "OD/CR/1005", name: "Konark Crèche 6", district: "Sambalpur", block: "Block A", children: 18, attendance: "83%", safety: 76, status: "Healthy", activityStatus: "Active", phone: "+91 98XX XXXX26", staffCount: 2, incidentsCount: 0, inspectionsCount: 1, lastInspected: "2026-01-22" },
-  { id: 7, code: "OD/CR/1006", name: "Lotus Crèche 7", district: "Mayurbhanj", block: "Block B", children: 23, attendance: "82%", safety: 75, status: "Healthy", activityStatus: "Active", phone: "+91 98XX XXXX27", staffCount: 2, incidentsCount: 1, inspectionsCount: 1, lastInspected: "2026-01-25" },
-  { id: 8, code: "OD/CR/1007", name: "Asha Crèche 8", district: "Kalahandi", block: "Block C", children: 29, attendance: "80%", safety: 74, status: "Warning", activityStatus: "Active", phone: "+91 98XX XXXX28", staffCount: 2, incidentsCount: 2, inspectionsCount: 2, lastInspected: "2026-01-28" },
-  { id: 9, code: "OD/CR/1008", name: "Shishu Crèche 9", district: "Koraput", block: "Block D", children: 34, attendance: "79%", safety: 74, status: "Warning", activityStatus: "Active", phone: "+91 98XX XXXX29", staffCount: 3, incidentsCount: 1, inspectionsCount: 1, lastInspected: "2026-02-01" },
-  { id: 10, code: "OD/CR/1009", name: "Ananda Crèche 10", district: "Sundargarh", block: "Block E", children: 39, attendance: "77%", safety: 73, status: "Healthy", activityStatus: "Active", phone: "+91 98XX XXXX30", staffCount: 3, incidentsCount: 0, inspectionsCount: 2, lastInspected: "2026-02-03" },
-  { id: 11, code: "OD/CR/1010", name: "Surya Crèche 11", district: "Khordha", block: "Block A", children: 25, attendance: "72%", safety: 90, status: "Critical", activityStatus: "Active", phone: "+91 98XX XXXX31", staffCount: 2, incidentsCount: 4, inspectionsCount: 2, lastInspected: "2026-02-05" },
-  { id: 12, code: "OD/CR/1011", name: "Tara Crèche 12", district: "Cuttack", block: "Block B", children: 25, attendance: "74%", safety: 72, status: "Healthy", activityStatus: "Active", phone: "+91 98XX XXXX32", staffCount: 2, incidentsCount: 1, inspectionsCount: 1, lastInspected: "2026-02-08" },
-  { id: 13, code: "OD/CR/1012", name: "Jagannath Crèche 13", district: "Puri", block: "Block C", children: 30, attendance: "73%", safety: 71, status: "Warning", activityStatus: "Active", phone: "+91 98XX XXXX33", staffCount: 3, incidentsCount: 2, inspectionsCount: 1, lastInspected: "2026-02-10" }
-];
+import dbData from '../data.json';
 
-const mockTrendData = [
-  { month: 'Jan', attendance: 70, nutrition: 70 },
-  { month: 'Feb', attendance: 75, nutrition: 68 },
-  { month: 'Mar', attendance: 78, nutrition: 67 },
-  { month: 'Apr', attendance: 80, nutrition: 65 },
-  { month: 'May', attendance: 82, nutrition: 64 },
-  { month: 'Jun', attendance: 81, nutrition: 63 },
-  { month: 'Jul', attendance: 77, nutrition: 62 },
-  { month: 'Aug', attendance: 74, nutrition: 64 },
-  { month: 'Sep', attendance: 73, nutrition: 67 },
-  { month: 'Oct', attendance: 72, nutrition: 69 },
-  { month: 'Nov', attendance: 75, nutrition: 73 },
-  { month: 'Dec', attendance: 77, nutrition: 76 }
-];
+const initialMockCreches = dbData.creches.map(c => ({
+  id: c.id,
+  code: c.code,
+  name: c.name,
+  district: c.district,
+  block: c.block,
+  children: c.children,
+  attendance: c.attendance,
+  safety: c.safety,
+  status: c.status,
+  activityStatus: "Active",
+  phone: `+91 98XX XXXX${20 + (c.id % 80)}`,
+  staffCount: 2 + (c.id % 3),
+  incidentsCount: c.id % 4,
+  inspectionsCount: 1 + (c.id % 3),
+  lastInspected: `2026-0${1 + (c.id % 5)}-1${c.id % 9}`
+}));
 
-const mockChildrenInCreche = [
-  { id: "CH-101", name: "Ramesh Kumar", age: "3y", gender: "M", status: "Healthy", attendance: "94%" },
-  { id: "CH-102", name: "Sita Mohapatra", age: "4y", gender: "F", status: "Healthy", attendance: "91%" },
-  { id: "CH-103", name: "Arup Patra", age: "2y", gender: "M", status: "Warning", attendance: "85%" },
-  { id: "CH-104", name: "Liza Pradhan", age: "5y", gender: "F", status: "Critical", attendance: "76%" },
-  { id: "CH-105", name: "Gopal Dash", age: "3y", gender: "M", status: "Healthy", attendance: "92%" }
-];
-
-const mockStaffInCreche = [
-  { name: "Minati Behera", role: "Lead Caregiver", status: "Present", phone: "+91 98XX XXXX91" },
-  { name: "Sasmita Rout", role: "Assistant Caregiver", status: "Present", phone: "+91 98XX XXXX92" },
-  { name: "Jyoti Naik", role: "Nutrition Specialist", status: "On Leave", phone: "+91 98XX XXXX93" }
-];
+const mockTrendData = dbData.crecheDetailTrendData;
+const mockChildrenInCreche = dbData.mockChildrenInCreche;
+const mockStaffInCreche = dbData.mockStaffInCreche;
 
 export default function Creches() {
+  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [crechesList, setCrechesList] = useState(initialMockCreches);
+  const [crechesList, setCrechesList] = useState(() => {
+    const saved = localStorage.getItem('crechesList');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return initialMockCreches;
+  });
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBlock, setSelectedBlock] = useState('All Blocks');
   const [selectedRisk, setSelectedRisk] = useState('All Risk Levels');
+  const [showOnlyActive, setShowOnlyActive] = useState(location.state?.filterActive || false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  
+  const blocksList = ['All Blocks', ...new Set(initialMockCreches.map(c => c.block))];
   
   // Crèche Detail View state
   const [selectedCreche, setSelectedCreche] = useState(null);
@@ -81,11 +75,7 @@ export default function Creches() {
   );
 
   // Health inspection logs
-  const [healthLogs, setHealthLogs] = useState([
-    { id: 'hl-1', type: 'Sanitation Check', desc: 'Passed standard checks. Disinfection completed successfully.', date: '2026-06-25', status: 'Healthy' },
-    { id: 'hl-2', type: 'Water Safety Inspection', desc: 'Water sample taken. pH levels and chlorine within optimal bounds.', date: '2026-06-18', status: 'Healthy' },
-    { id: 'hl-3', type: 'First Aid Inventory Check', desc: 'Supplies restocked. Paracetamol and bandages replenished.', date: '2026-06-10', status: 'Healthy' }
-  ]);
+  const [healthLogs, setHealthLogs] = useState(dbData.crecheDetailHealthLogs);
 
   // New Crèche Form State
   const [formCreche, setFormCreche] = useState({
@@ -122,7 +112,9 @@ export default function Creches() {
       lastInspected: new Date().toISOString().split('T')[0]
     };
 
-    setCrechesList([newRecord, ...crechesList]);
+    const updatedList = [newRecord, ...crechesList];
+    setCrechesList(updatedList);
+    localStorage.setItem('crechesList', JSON.stringify(updatedList));
     setShowRegisterModal(false);
     setFormCreche({
       name: '',
@@ -144,8 +136,9 @@ export default function Creches() {
     
     const matchesBlock = selectedBlock === 'All Blocks' || creche.block === selectedBlock;
     const matchesRisk = selectedRisk === 'All Risk Levels' || creche.status === selectedRisk;
+    const matchesActiveOnly = !showOnlyActive || creche.status !== 'Critical';
 
-    return matchesSearch && matchesBlock && matchesRisk;
+    return matchesSearch && matchesBlock && matchesRisk && matchesActiveOnly;
   });
 
   const totalItems = filteredCreches.length;
@@ -787,7 +780,7 @@ export default function Creches() {
                 <div className="flex items-center gap-3">
                   <button 
                     onClick={() => setShowRegisterModal(true)}
-                    className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-colors shadow-sm cursor-pointer active:scale-95"
+                    className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-colors shadow-sm cursor-pointer active:scale-95 premium-btn"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -798,7 +791,7 @@ export default function Creches() {
               </div>
 
               {/* Search & Filters Controls Container */}
-              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/60 p-4 shadow-xs flex flex-wrap items-center gap-4 transition-colors">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/60 p-4 shadow-xs flex flex-wrap items-center gap-4 transition-all duration-300 hover:shadow-md hover:shadow-slate-100/50 dark:hover:shadow-none">
                 {/* Search Bar */}
                 <div className="relative flex-1 min-w-[240px]">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -811,9 +804,23 @@ export default function Creches() {
                     value={searchTerm}
                     onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
                     placeholder="Search by name, code or district..."
-                    className="w-full pl-9.5 pr-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#078662]/20 focus:border-[#078662] transition-all"
+                    className="w-full pl-9.5 pr-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus-glow-brand transition-all"
                   />
                 </div>
+
+                {showOnlyActive && (
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-100 dark:border-emerald-900/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 text-xs font-bold transition-all">
+                    <span>Active Only</span>
+                    <button 
+                      onClick={() => setShowOnlyActive(false)}
+                      className="hover:text-emerald-900 dark:hover:text-white transition-colors cursor-pointer select-none"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                )}
 
                 {/* Block Filter */}
                 <div className="flex items-center gap-2">
@@ -821,14 +828,11 @@ export default function Creches() {
                   <select
                     value={selectedBlock}
                     onChange={(e) => { setSelectedBlock(e.target.value); setCurrentPage(1); }}
-                    className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#078662]/20 cursor-pointer"
+                    className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus-glow-brand cursor-pointer transition-all"
                   >
-                    <option value="All Blocks">All Blocks</option>
-                    <option value="Block A">Block A</option>
-                    <option value="Block B">Block B</option>
-                    <option value="Block C">Block C</option>
-                    <option value="Block D">Block D</option>
-                    <option value="Block E">Block E</option>
+                    {blocksList.map(b => (
+                      <option key={b} value={b}>{b}</option>
+                    ))}
                   </select>
                 </div>
 
@@ -837,8 +841,8 @@ export default function Creches() {
                   <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Risk Level:</span>
                   <select
                     value={selectedRisk}
-                    onChange={(e) => { setSelectedRisk(e.target.value); setCurrentPage(1); }}
-                    className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[#078662]/20 cursor-pointer"
+                    onChange={(e) => { setSelectedRisk(e.target.value); setShowOnlyActive(false); setCurrentPage(1); }}
+                    className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-300 focus-glow-brand cursor-pointer transition-all"
                   >
                     <option value="All Risk Levels">All Risk Levels</option>
                     <option value="Healthy">Healthy</option>
@@ -850,63 +854,63 @@ export default function Creches() {
 
               {/* Table Container (Formatted exactly like reference screenshot) */}
               <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 shadow-sm overflow-hidden transition-colors">
-                <div className="overflow-x-auto no-scrollbar">
-                  <table className="w-full min-w-[1000px] border-collapse text-left">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[1200px] border-collapse text-left">
                     <thead>
                       <tr className="bg-[#f8fafc] dark:bg-slate-900/60 border-b border-slate-100 dark:border-slate-700/50 font-sans">
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">CODE</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">Name</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">DISTRICT</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">BLOCK</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">CHILDREN</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">ATTEND.</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">SAFETY</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">RISK</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">STATUS</th>
-                        <th className="px-6 py-4.5 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap text-right pr-8"></th>
+                        <th className="sticky left-0 z-20 bg-[#f8fafc] dark:bg-slate-900 px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap w-[110px] min-w-[110px]">CODE</th>
+                        <th className="sticky left-[110px] z-20 bg-[#f8fafc] dark:bg-slate-900 px-4 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap w-[220px] min-w-[220px] shadow-[2px_0_5px_rgba(0,0,0,0.05)] dark:shadow-[2px_0_5px_rgba(0,0,0,0.2)]">NAME</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">DISTRICT</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">BLOCK</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap text-center">CHILDREN</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap text-center">ATTENDANCE</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap text-center">SAFETY</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">RISK</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap">STATUS</th>
+                        <th className="px-3.5 py-4 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider whitespace-nowrap text-right pr-4"></th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50">
                       {paginatedCreches.map((creche) => (
-                        <tr key={creche.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors">
-                          <td className="px-6 py-5 text-[13px] text-slate-500 dark:text-slate-400 font-semibold whitespace-nowrap">
+                        <tr key={creche.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                          <td className="sticky left-0 z-10 bg-white dark:bg-slate-800 px-3.5 py-3.5 text-[13px] text-slate-500 dark:text-slate-400 font-semibold whitespace-nowrap w-[110px] min-w-[110px] transition-colors group-hover:bg-[#f8fafc] dark:group-hover:bg-slate-700/20">
                             {creche.code}
                           </td>
-                          <td className="px-6 py-5 whitespace-nowrap">
-                            <span className="text-sm font-bold text-slate-800 dark:text-white">
+                          <td className="sticky left-[110px] z-10 bg-white dark:bg-slate-800 px-4 py-3.5 whitespace-nowrap w-[220px] min-w-[220px] shadow-[2px_0_5px_rgba(0,0,0,0.05)] dark:shadow-[2px_0_5px_rgba(0,0,0,0.2)] transition-colors group-hover:bg-[#f8fafc] dark:group-hover:bg-slate-700/20">
+                            <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                               {creche.name}
                             </span>
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-330 whitespace-nowrap">
+                          <td className="px-3.5 py-3.5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                             {creche.district}
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-3.5 py-3.5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                             {creche.block}
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-3.5 py-3.5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap text-center">
                             {creche.children}
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-3.5 py-3.5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap text-center">
                             {creche.attendance}
                           </td>
-                          <td className="px-6 py-5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+                          <td className="px-3.5 py-3.5 text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap text-center">
                             {creche.safety}
                           </td>
-                          <td className="px-6 py-5 whitespace-nowrap">
+                          <td className="px-3.5 py-3.5 whitespace-nowrap">
                             {renderRiskBadge(creche.status)}
                           </td>
-                          <td className="px-6 py-5 whitespace-nowrap">
+                          <td className="px-3.5 py-3.5 whitespace-nowrap">
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border border-emerald-100 dark:border-emerald-900/30 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                               {creche.activityStatus}
                             </span>
                           </td>
-                          <td className="px-6 py-5 text-right whitespace-nowrap pr-8">
+                          <td className="px-3.5 py-3.5 text-right whitespace-nowrap pr-4">
                             <button 
                               onClick={() => { setSelectedCreche(creche); setActiveTab('Overview'); }}
-                              className="flex items-center gap-1.5 ml-auto text-cyan-500 hover:text-cyan-600 dark:text-cyan-400 dark:hover:text-cyan-300 font-bold text-sm tracking-wide transition-colors hover:underline cursor-pointer select-none"
+                              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#078662] hover:text-white border border-[#078662]/20 hover:border-transparent hover:bg-[#078662] transition-all duration-200 cursor-pointer select-none active:scale-95"
                             >
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                               </svg>

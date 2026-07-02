@@ -245,7 +245,7 @@ export default function Login() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#078662]/20 focus:border-[#078662] transition-all duration-200 text-sm md:text-base"
+                  className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus-glow-brand transition-all duration-200 text-sm md:text-base"
                   placeholder={t.emailPlaceholder}
                 />
               </div>
@@ -271,7 +271,7 @@ export default function Login() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-11 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#078662]/20 focus:border-[#078662] transition-all duration-200 text-sm md:text-base"
+                  className="w-full pl-11 pr-11 py-3 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus-glow-brand transition-all duration-200 text-sm md:text-base"
                   placeholder={t.passwordPlaceholder}
                 />
                 {/* Eye Icon Toggle Button */}
@@ -321,7 +321,7 @@ export default function Login() {
             {/* Sign in Button */}
             <button
               type="submit"
-              className="w-full py-3.5 px-4 bg-[#078662] hover:bg-[#066e51] text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/20 active:scale-[0.99] flex items-center justify-center gap-2.5 transition-all duration-200"
+              className="w-full py-3.5 px-4 bg-[#078662] hover:bg-[#066e51] text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 active:scale-[0.98] premium-btn flex items-center justify-center gap-2.5 transition-all duration-200"
             >
               <svg className="w-5 h-5 opacity-90" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

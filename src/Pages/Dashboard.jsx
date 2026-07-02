@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import {
@@ -14,211 +15,30 @@ import {
   Cell,
 } from 'recharts';
 
+import dbData from '../data.json';
 
-const trendData = [
-  { month: 'Jan', attendance: 72, nutrition: 70, incidents: 30 },
-  { month: 'Feb', attendance: 74, nutrition: 71, incidents: 28 },
-  { month: 'Mar', attendance: 78, nutrition: 72, incidents: 27 },
-  { month: 'Apr', attendance: 80, nutrition: 70, incidents: 25 },
-  { month: 'May', attendance: 81, nutrition: 68, incidents: 24 },
-  { month: 'Jun', attendance: 78, nutrition: 65, incidents: 23 },
-  { month: 'Jul', attendance: 74, nutrition: 63, incidents: 22 },
-  { month: 'Aug', attendance: 72, nutrition: 64, incidents: 23 },
-  { month: 'Sep', attendance: 71, nutrition: 67, incidents: 24 },
-  { month: 'Oct', attendance: 73, nutrition: 71, incidents: 25 },
-  { month: 'Nov', attendance: 76, nutrition: 74, incidents: 26 },
-  { month: 'Dec', attendance: 78, nutrition: 76, incidents: 27 },
-];
 
-const riskData = [
-  { name: 'Healthy', value: 24, color: '#22c55e' },
-  { name: 'Warning', value: 16, color: '#f59e0b' },
-  { name: 'Critical', value: 8, color: '#ef4444' },
-];
+const trendData = dbData.dashboardTrendData;
+const aiInsightsData = dbData.aiInsightsData;
+const recentActivityData = dbData.recentActivityData;
+const cctvFeedsData = dbData.cctvFeedsData;
 
-const aiInsightsData = [
-  {
-    id: 1,
-    type: 'Critical',
-    time: 'just now',
-    title: 'Nutrition gap predicted in 14 crèches',
-    description: 'Model forecasts a 22% drop in meal compliance in Joda Block over the next 7 days based on supply patterns.',
-    actionText: 'Trigger supply review →',
-    badgeBg: 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border-rose-100 dark:border-rose-900/30',
-    dotBg: 'bg-rose-500'
-  },
-  {
-    id: 2,
-    type: 'Warning',
-    time: 'just now',
-    title: 'Attendance anomaly in Block C',
-    description: 'Attendance dropped 18% vs 4-week average. Likely cause: seasonal migration.',
-    actionText: 'Schedule field visit →',
-    badgeBg: 'bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border-amber-100 dark:border-amber-900/30',
-    dotBg: 'bg-amber-500'
-  },
-  {
-    id: 3,
-    type: 'Info',
-    time: 'just now',
-    title: 'Vaccination drive recommendation',
-    description: '36 children in Keonjhar district approaching DPT booster window.',
-    actionText: 'Generate schedule →',
-    badgeBg: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200/60 dark:border-slate-700/50',
-    dotBg: 'bg-slate-400'
-  }
-];
 
-const recentActivityData = [
-  {
-    id: 1,
-    avatar: 'IR',
-    user: 'Insp. Rao',
-    action: 'submitted inspection for',
-    target: 'Shishu Crèche 12',
-    time: '2 min ago'
-  },
-  {
-    id: 2,
-    avatar: 'AE',
-    user: 'AI Engine',
-    action: 'flagged risk on',
-    target: 'CH-2073',
-    time: '8 min ago'
-  },
-  {
-    id: 3,
-    avatar: 'DA',
-    user: 'District Admin',
-    action: 'approved meal plan for',
-    target: 'Block B',
-    time: '22 min ago'
-  },
-  {
-    id: 4,
-    avatar: 'C',
-    user: 'CCTV-AI',
-    action: 'detected unauthorized entry at',
-    target: 'Surya Crèche 4',
-    time: '45 min ago'
-  },
-  {
-    id: 5,
-    avatar: 'PA',
-    user: 'PMU Admin',
-    action: 'published new protocol',
-    target: 'Vaccination 2026',
-    time: '1 hr ago'
-  },
-  {
-    id: 6,
-    avatar: 'IS',
-    user: 'Insp. Singh',
-    action: 'started inspection of',
-    target: 'Tara Crèche 19',
-    time: '2 hr ago'
-  }
-];
 
-const cctvFeedsData = [
-  { id: 'CAM-100', name: 'Joda Shishu Crèche' },
-  { id: 'CAM-101', name: 'Champua Ananda Kendra' },
-  { id: 'CAM-102', name: 'Anandapur Surya Crèche' },
-  { id: 'CAM-103', name: 'Ghatagaon Tarini Crèche' }
-];
-
-const statCards = [
-  {
-    label: 'Total Crèches',
-    value: '1,302',
-    delta: '+12',
-    deltaType: 'up',
-    iconBg: 'bg-blue-50',
-    iconColor: 'text-blue-600',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h1m4 0h1" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Active Crèches',
-    value: '1,284',
-    delta: '98.4%',
-    deltaType: 'up',
-    iconBg: 'bg-emerald-50',
-    iconColor: 'text-emerald-600',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h4l2 6 4-12 2 6h6" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Children Enrolled',
-    value: '28,476',
-    delta: '+184',
-    deltaType: 'up',
-    iconBg: 'bg-blue-50',
-    iconColor: 'text-blue-600',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-2.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-4-4" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Attendance Today',
-    value: '82.4%',
-    delta: '+1.8%',
-    deltaType: 'up',
-    iconBg: 'bg-emerald-50',
-    iconColor: 'text-emerald-600',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3 17l5-5 4 4 8-8M14 7h7v7" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Health Cases',
-    value: '129',
-    delta: '-6',
-    deltaType: 'down',
-    iconBg: 'bg-amber-50',
-    iconColor: 'text-amber-500',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 10-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-      </svg>
-    ),
-  },
-  {
-    label: 'Active Alerts',
-    value: '22',
-    delta: '+3',
-    deltaType: 'up',
-    iconBg: 'bg-rose-50',
-    iconColor: 'text-rose-500',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 16.5h.008v.008H12v-.008z" />
-      </svg>
-    ),
-  },
-];
-
-function StatCard({ label, value, delta, deltaType, iconBg, iconColor, icon }) {
+function StatCard({ label, value, delta, deltaType, iconBg, iconColor, icon, path, state }) {
   const isUp = deltaType === 'up';
+  const navigate = useNavigate();
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700/60 p-4 flex flex-col gap-3 transition-colors">
-      <div className="flex items-center justify-between">
-        <div className={`w-9 h-9 rounded-full flex items-center justify-center ${iconBg} ${iconColor}`}>
+    <div
+      onClick={() => path && navigate(path, { state })}
+      className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1 transition-all duration-300 select-none cursor-pointer active:scale-[0.98] min-h-[140px]"
+    >
+      <div className="flex items-center justify-between gap-2 mb-4">
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconBg} ${iconColor} transition-transform hover:scale-105 duration-200 shrink-0`}>
           {icon}
         </div>
         <span
-          className={`flex items-center gap-0.5 text-xs font-semibold ${isUp ? 'text-emerald-500' : 'text-rose-500'
-            }`}
+          className={`flex items-center gap-0.5 text-xs font-bold ${isUp ? 'text-emerald-500' : 'text-rose-500'}`}
         >
           <svg
             className={`w-3 h-3 ${isUp ? '' : 'rotate-90'}`}
@@ -233,8 +53,12 @@ function StatCard({ label, value, delta, deltaType, iconBg, iconColor, icon }) {
         </span>
       </div>
       <div>
-        <p className="text-2xl font-bold text-slate-900 dark:text-white leading-tight">{value}</p>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">{label}</p>
+        <span className="block text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+          {value}
+        </span>
+        <span className="block text-xs font-semibold text-slate-400 dark:text-slate-500 mt-1">
+          {label}
+        </span>
       </div>
     </div>
   );
@@ -258,6 +82,120 @@ export default function Dashboard() {
   const [range, setRange] = useState('Last 12 months');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Dynamic calculations from database
+  const crechesList = (() => {
+    const saved = localStorage.getItem('crechesList');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {}
+    }
+    return dbData.creches.map(c => ({
+      id: c.id,
+      code: c.code,
+      name: c.name,
+      district: c.district,
+      block: c.block,
+      children: c.children,
+      attendance: c.attendance,
+      safety: c.safety,
+      status: c.status,
+      activityStatus: "Active",
+      phone: `+91 98XX XXXX${20 + (c.id % 80)}`,
+      staffCount: 2 + (c.id % 3),
+      incidentsCount: c.id % 4,
+      inspectionsCount: 1 + (c.id % 3),
+      lastInspected: `2026-0${1 + (c.id % 5)}-1${c.id % 9}`
+    }));
+  })();
+
+  const childrenList = (() => {
+    const saved = localStorage.getItem('childrenList');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {}
+    }
+    return dbData.children;
+  })();
+
+  const totalCrechesCount = crechesList.length;
+  const activeCrechesCount = crechesList.filter(c => c.status !== 'Critical').length;
+  const totalChildrenCount = childrenList.length;
+
+  const totalAttendancePct = crechesList.reduce((acc, c) => acc + parseFloat(c.attendance), 0);
+  const avgAttendanceToday = (totalAttendancePct / totalCrechesCount).toFixed(1) + '%';
+
+  const healthyCount = crechesList.filter(c => c.status === 'Healthy').length;
+  const warningCount = crechesList.filter(c => c.status === 'Warning').length;
+  const criticalCount = crechesList.filter(c => c.status === 'Critical').length;
+
+  const riskData = [
+    { name: 'Healthy', value: healthyCount, color: '#22c55e' },
+    { name: 'Warning', value: warningCount, color: '#f59e0b' },
+    { name: 'Critical', value: criticalCount, color: '#ef4444' },
+  ];
+
+  const statCards = [
+    {
+      label: 'Total Crèches',
+      value: totalCrechesCount.toString(),
+      delta: '+2',
+      deltaType: 'up',
+      iconBg: 'bg-blue-50',
+      iconColor: 'text-blue-600',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V7l8-4 8 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h1m4 0h1" />
+        </svg>
+      ),
+      path: '/creches',
+    },
+    {
+      label: 'Active Crèches',
+      value: activeCrechesCount.toString(),
+      delta: `${((activeCrechesCount / totalCrechesCount) * 100).toFixed(1)}%`,
+      deltaType: 'up',
+      iconBg: 'bg-emerald-50',
+      iconColor: 'text-emerald-600',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 12h4l2 6 4-12 2 6h6" />
+        </svg>
+      ),
+      path: '/creches',
+      state: { filterActive: true },
+    },
+    {
+      label: 'Children Enrolled',
+      value: totalChildrenCount.toLocaleString(),
+      delta: '+14',
+      deltaType: 'up',
+      iconBg: 'bg-blue-50',
+      iconColor: 'text-blue-600',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+        </svg>
+      ),
+      path: '/children',
+    },
+    {
+      label: 'Attendance Today',
+      value: avgAttendanceToday,
+      delta: '+0.5%',
+      deltaType: 'up',
+      iconBg: 'bg-emerald-50',
+      iconColor: 'text-emerald-600',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 17l5-5 4 4 8-8M14 7h7v7" />
+        </svg>
+      ),
+      path: '/attendance',
+    },
+  ];
+
   return (
     <div className="h-screen bg-[#FAFAFA] dark:bg-slate-900 flex font-sans overflow-hidden transition-colors duration-200">
       {/* Sticky Left Sidebar */}
@@ -271,14 +209,10 @@ export default function Dashboard() {
         {/* Scrollable Main Dashboard Body */}
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-              Real-time intelligence across <span className="font-semibold text-slate-700 dark:text-slate-200">1,302 crèches</span> · Odisha
-            </p>
-          </div>
+
 
           {/* Stat cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {statCards.map((card) => (
               <StatCard key={card.label} {...card} />
             ))}

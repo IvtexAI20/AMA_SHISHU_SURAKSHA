@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from 'recharts';
 
 import dbData from '../data.json';
 
@@ -11,10 +21,38 @@ const greenData = dbData.greenCohortData;
 
 export default function Health() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [alerts, setAlerts] = useState(initialAlerts);
+  const [alerts, setAlerts] = useState(() => {
+    const saved = localStorage.getItem('healthAlerts');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return initialAlerts;
+  });
   const [toastMsg, setToastMsg] = useState('');
-  const [hoveredPoint, setHoveredPoint] = useState(null);
-  
+  const childrenList = (() => {
+    const saved = localStorage.getItem('childrenList');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) { }
+    }
+    return dbData.children;
+  })();
+
+  const totalChildrenTracked = childrenList.length;
+
+  const vaccinatedCount = childrenList.filter(c => c.vaccinated === 'Completed' || c.vaccinated === 'Fully Vaccinated').length;
+  const vaccinatedPct = childrenList.length ? Math.round((vaccinatedCount / childrenList.length) * 100) + '%' : '85%';
+
+  const healthyGrowthCount = childrenList.filter(c => c.status === 'Healthy').length;
+  const growthOnTrackPct = childrenList.length ? Math.round((healthyGrowthCount / childrenList.length) * 100) + '%' : '89%';
+
+  const activeMedicalAlertsCount = alerts.length;
+
   // Modal states
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -29,7 +67,15 @@ export default function Health() {
     }, 4000);
   };
 
-  const handleEscalate = (name) => {
+  const handleEscalate = (id, name) => {
+    const updatedList = alerts.map(a => {
+      if (a.id === id) {
+        return { ...a, escalated: true };
+      }
+      return a;
+    });
+    setAlerts(updatedList);
+    localStorage.setItem('healthAlerts', JSON.stringify(updatedList));
     triggerToast(`Incident escalated for ${name} to Keonjhar block medical officer.`);
   };
 
@@ -42,14 +88,21 @@ export default function Health() {
   const handleUpdateSubmit = (e) => {
     e.preventDefault();
     triggerToast(`Medical log updated for ${selectedChild.name}.`);
-    
+
     // Update alert in list with note or modified state
-    setAlerts(alerts.map(a => {
+    const updatedList = alerts.map(a => {
       if (a.id === selectedChild.id) {
-        return { ...a, risk: childStatus === 'Critical' ? 97 : 80 };
+        return {
+          ...a,
+          risk: childStatus === 'Critical' ? 97 : 80,
+          type: childStatus,
+          lastUpdated: 'Just now'
+        };
       }
       return a;
-    }));
+    });
+    setAlerts(updatedList);
+    localStorage.setItem('healthAlerts', JSON.stringify(updatedList));
 
     setShowUpdateModal(false);
     setSelectedChild(null);
@@ -58,32 +111,32 @@ export default function Health() {
 
   const downloadHealthReport = () => {
     triggerToast('Generating health report download...');
-    
+
     // Create CSV content data string
     let csv = '\uFEFF'; // UTF-8 BOM
     csv += 'Ama Shishu Suraksha Platform - Health Monitoring Report\n';
     csv += `Generated Date: ${new Date().toLocaleDateString()}\n\n`;
-    
+
     csv += 'SUMMARY STATS\n';
     csv += 'Metric,Value\n';
     csv += 'Children Tracked,240\n';
     csv += 'Vaccinated,85%\n';
     csv += 'Growth On-track,89%\n';
     csv += 'Active Medical Alerts,8\n\n';
-    
+
     csv += 'COHORT GROWTH CHART DATA\n';
     csv += 'Month,Blue Cohort (avgHeight),Green Cohort (avgWeight)\n';
     months.forEach((m, idx) => {
       csv += `${m},${blueData[idx]},${Math.round((greenData[idx] / 100) * 16)}\n`;
     });
     csv += '\n';
-    
+
     csv += 'ACTIVE INCIDENTS LOG\n';
     csv += 'Child Name,Risk Score,Age,Alert Level\n';
     alerts.forEach((alert) => {
       csv += `"${alert.name}",${alert.risk},${alert.age},${alert.type}\n`;
     });
-    
+
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
@@ -94,30 +147,15 @@ export default function Health() {
     document.body.removeChild(link);
   };
 
-  // SVG Chart sizing configurations
-  const width = 850;
-  const height = 320;
-  const paddingX = 55;
-  const paddingY = 40;
-  const chartWidth = width - 2 * paddingX;
-  const chartHeight = height - 2 * paddingY;
-
-  // Coordinate conversion helper functions
-  const getX = (index) => paddingX + (index * chartWidth) / (months.length - 1);
-  const getY = (val) => height - paddingY - (val / 100) * chartHeight;
-
-  // Construct SVG path string helper
-  const getPathD = (data) => {
-    return data.reduce((path, val, idx) => {
-      const x = getX(idx);
-      const y = getY(val);
-      return path + `${idx === 0 ? 'M' : 'L'} ${x} ${y}`;
-    }, '');
-  };
+  const chartData = months.map((m, idx) => ({
+    month: m,
+    avgHeight: blueData[idx],
+    avgWeight: parseFloat(((greenData[idx] / 100) * 16).toFixed(1))
+  }));
 
   return (
     <div className="h-screen bg-[#FAFAFA] dark:bg-slate-900 flex font-sans overflow-hidden transition-colors duration-200 relative">
-      
+
       {/* Toast Notification */}
       {toastMsg && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900 text-white text-sm font-semibold shadow-xl border border-slate-800 animate-in fade-in slide-in-from-bottom-4 duration-300">
@@ -138,7 +176,7 @@ export default function Health() {
 
         {/* Main Body */}
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto no-scrollbar">
-          
+
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
@@ -152,7 +190,7 @@ export default function Health() {
 
             <button
               onClick={() => setShowReportModal(true)}
-              className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-all shadow-sm cursor-pointer active:scale-95 self-end sm:self-auto"
+              className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-all shadow-sm cursor-pointer active:scale-95 premium-btn self-end sm:self-auto"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -163,17 +201,17 @@ export default function Health() {
 
           {/* 4-Card Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            
+
             {/* Children Tracked */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-xs transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1 transition-all duration-300">
+              <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                 </svg>
               </div>
               <div>
                 <span className="block text-xl sm:text-2xl font-semibold text-slate-800 dark:text-white leading-tight">
-                  240
+                  {totalChildrenTracked}
                 </span>
                 <span className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mt-1">
                   Children Tracked
@@ -182,15 +220,15 @@ export default function Health() {
             </div>
 
             {/* Vaccinated */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-xs transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1 transition-all duration-300">
+              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
                 <span className="block text-xl sm:text-2xl font-semibold text-slate-800 dark:text-white leading-tight">
-                  85%
+                  {vaccinatedPct}
                 </span>
                 <span className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mt-1">
                   Vaccinated
@@ -199,15 +237,15 @@ export default function Health() {
             </div>
 
             {/* Growth On-track */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-xs transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1 transition-all duration-300">
+              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
                 </svg>
               </div>
               <div>
                 <span className="block text-xl sm:text-2xl font-semibold text-slate-800 dark:text-white leading-tight">
-                  89%
+                  {growthOnTrackPct}
                 </span>
                 <span className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mt-1">
                   Growth On-track
@@ -216,15 +254,15 @@ export default function Health() {
             </div>
 
             {/* Active Medical Alerts */}
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-xs transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-none hover:-translate-y-1 transition-all duration-300">
+              <div className="w-10 h-10 rounded-full bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4 transition-transform hover:scale-105 duration-200">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                 </svg>
               </div>
               <div>
                 <span className="block text-xl sm:text-2xl font-semibold text-slate-800 dark:text-white leading-tight">
-                  8
+                  {activeMedicalAlertsCount}
                 </span>
                 <span className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mt-1">
                   Active Medical Alerts
@@ -236,201 +274,106 @@ export default function Health() {
 
           {/* Bottom Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            
+
             {/* Average Growth card - Side-by-side layout */}
-            <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-between transition-all relative">
-              
-              <div className="flex items-center justify-between gap-4 mb-4">
+            <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-6 shadow-sm flex flex-col justify-start transition-all relative">
+
+              <div className="flex items-center justify-between gap-4 mb-36">
                 <h3 className="text-base sm:text-lg font-semibold text-slate-800 dark:text-white">
                   Average Growth
                 </h3>
               </div>
 
               <div className="w-full relative overflow-x-auto no-scrollbar">
-                <div className="min-w-[750px] w-full h-[320px] relative">
-                  
-                  {/* SVG Chart */}
-                  <svg className="w-full h-full text-slate-300 dark:text-slate-600" viewBox={`0 0 ${width} ${height}`}>
-                    {/* Grid horizontal lines */}
-                    {[0, 25, 50, 75, 100].map((tick) => (
-                      <g key={tick}>
-                        <line
-                          x1={paddingX}
-                          y1={getY(tick)}
-                          x2={width - paddingX}
-                          y2={getY(tick)}
-                          stroke="currentColor"
-                          strokeWidth="1"
-                          strokeDasharray="4 4"
-                          className="opacity-40"
-                        />
-                        <text
-                          x={paddingX - 10}
-                          y={getY(tick) + 4}
-                          textAnchor="end"
-                          className="text-[10px] font-semibold fill-slate-400 select-none"
-                        >
-                          {tick}
-                        </text>
-                      </g>
-                    ))}
-
-                    {/* Right axis ticks (0 to 16) */}
-                    {[0, 4, 8, 12, 16].map((tick) => (
-                      <text
-                        key={tick}
-                        x={width - paddingX + 10}
-                        y={getY((tick / 16) * 100) + 4}
-                        textAnchor="start"
-                        className="text-[10px] font-semibold fill-slate-400 select-none"
-                      >
-                        {tick}
-                      </text>
-                    ))}
-
-                    {/* Grid vertical lines */}
-                    {months.map((m, idx) => (
-                      <g key={m}>
-                        <line
-                          x1={getX(idx)}
-                          y1={paddingY}
-                          x2={getX(idx)}
-                          y2={height - paddingY}
-                          stroke="currentColor"
-                          strokeWidth="1"
-                          strokeDasharray="4 4"
-                          className="opacity-20"
-                        />
-                        <text
-                          x={getX(idx)}
-                          y={height - paddingY + 16}
-                          textAnchor="middle"
-                          className="text-[10px] font-semibold fill-slate-400 select-none"
-                        >
-                          {m}
-                        </text>
-                      </g>
-                    ))}
-
-                    {/* Chart Frame lines */}
-                    <line x1={paddingX} y1={paddingY} x2={paddingX} y2={height - paddingY} stroke="#cbd5e1" strokeWidth="1" />
-                    <line x1={width - paddingX} y1={paddingY} x2={width - paddingX} y2={height - paddingY} stroke="#cbd5e1" strokeWidth="1" />
-                    <line x1={paddingX} y1={height - paddingY} x2={width - paddingX} y2={height - paddingY} stroke="#cbd5e1" strokeWidth="1" />
-
-                    {/* Trend Line 1 (Blue) */}
-                    <path
-                      d={getPathD(blueData)}
-                      fill="none"
-                      stroke="#3b82f6"
-                      strokeWidth="2.5"
-                      className="transition-all"
-                    />
-
-                    {/* Trend Line 2 (Green) */}
-                    <path
-                      d={getPathD(greenData)}
-                      fill="none"
-                      stroke="#22c55e"
-                      strokeWidth="2.5"
-                      className="transition-all"
-                    />
-
-                    {/* Interactive points */}
-                    {blueData.map((val, idx) => {
-                      const cx = getX(idx);
-                      const cy = getY(val);
-                      const handleActive = () => setHoveredPoint({
-                        x: cx,
-                        y: cy,
-                        month: months[idx],
-                        heightVal: val,
-                        weightVal: Math.round((greenData[idx] / 100) * 16)
-                      });
-                      const handleDeactive = () => setHoveredPoint(null);
-                      return (
-                        <circle
-                          key={`blue-${idx}`}
-                          cx={cx}
-                          cy={cy}
-                          r="4"
-                          fill="white"
-                          stroke="#3b82f6"
-                          strokeWidth="2.5"
-                          className="cursor-pointer hover:r-6 transition-all animate-pulse"
-                          onMouseEnter={handleActive}
-                          onMouseLeave={handleDeactive}
-                          onTouchStart={handleActive}
-                          onTouchEnd={handleDeactive}
-                        />
-                      );
-                    })}
-
-                    {/* Green points */}
-                    {greenData.map((val, idx) => {
-                      const cx = getX(idx);
-                      const cy = getY(val);
-                      const handleActive = () => setHoveredPoint({
-                        x: cx,
-                        y: cy,
-                        month: months[idx],
-                        heightVal: blueData[idx],
-                        weightVal: Math.round((val / 100) * 16)
-                      });
-                      const handleDeactive = () => setHoveredPoint(null);
-                      return (
-                        <circle
-                          key={`green-${idx}`}
-                          cx={cx}
-                          cy={cy}
-                          r="4"
-                          fill="white"
-                          stroke="#22c55e"
-                          strokeWidth="2.5"
-                          className="cursor-pointer hover:r-6 transition-all animate-pulse"
-                          onMouseEnter={handleActive}
-                          onMouseLeave={handleDeactive}
-                          onTouchStart={handleActive}
-                          onTouchEnd={handleDeactive}
-                        />
-                      );
-                    })}
-
-                  </svg>
-
-                  {/* Interactive Chart Tooltip */}
-                  {hoveredPoint && (
-                    <div 
-                      className="absolute z-10 bg-white text-slate-700 text-xs font-semibold p-4 rounded-2xl border border-slate-100 shadow-lg pointer-events-none select-none transition-all duration-150"
-                      style={{ left: `${hoveredPoint.x + 12}px`, top: `${hoveredPoint.y + 12}px` }}
+                <div className="min-w-[700px] w-full h-[320px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart
+                      data={chartData}
+                      margin={{ top: 0, right: 30, left: 10, bottom: 10 }}
                     >
-                      <p className="text-slate-800 font-bold text-sm mb-2">{hoveredPoint.month}</p>
-                      <p className="text-[#3b82f6] font-semibold text-xs leading-none">avgHeight : {hoveredPoint.heightVal}</p>
-                      <p className="text-[#22c55e] font-semibold text-xs leading-none mt-2">avgWeight : {hoveredPoint.weightVal}</p>
-                    </div>
-                  )}
-
-                </div>
-              </div>
-
-              {/* Bottom center floating toolbar markup */}
-              <div className="flex items-center justify-center mt-4">
-                <div className="bg-slate-100/80 dark:bg-slate-700/60 backdrop-blur-xs py-1.5 px-3 rounded-full border border-slate-200/50 dark:border-slate-600/50 flex items-center gap-3.5 shadow-2xs">
-                  <button className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors" title="Zoom">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM10.5 7.5v6m3-3h-6" />
-                    </svg>
-                  </button>
-                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 select-none">T</span>
-                  <button className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors" title="Draw">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                    </svg>
-                  </button>
-                  <button className="text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors" title="Comment">
-                    <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.282 3.42.349L12 21.75l2.623-2.67c1.15-.067 2.291-.183 3.42-.349a3.22 3.22 0 002.707-3.228V6.75a3.22 3.22 0 00-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                    </svg>
-                  </button>
+                      <defs>
+                        <linearGradient id="heightColor" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.15} />
+                          <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="weightColor" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#22c55e" stopOpacity={0.15} />
+                          <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 600 }}
+                      />
+                      <YAxis
+                        yAxisId="left"
+                        tickLine={false}
+                        axisLine={false}
+                        domain={[60, 100]}
+                        tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 600 }}
+                        unit=" cm"
+                      />
+                      <YAxis
+                        yAxisId="right"
+                        orientation="right"
+                        tickLine={false}
+                        axisLine={false}
+                        domain={[5, 15]}
+                        tick={{ fill: '#94a3b8', fontSize: 11, fontWeight: 600 }}
+                        unit=" kg"
+                      />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: '#0f172a',
+                          border: 'none',
+                          borderRadius: '12px',
+                          color: '#fff',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)'
+                        }}
+                        itemStyle={{ color: '#fff' }}
+                        labelStyle={{ color: '#94a3b8', marginBottom: '4px', fontWeight: '700' }}
+                        formatter={(value, name) => {
+                          if (name === "avgHeight") return [`${value} cm`, "Avg Height"];
+                          if (name === "avgWeight") return [`${value} kg`, "Avg Weight"];
+                          return [value, name];
+                        }}
+                      />
+                      <Legend
+                        verticalAlign="top"
+                        height={18}
+                        iconType="circle"
+                        iconSize={8}
+                        wrapperStyle={{ fontSize: '12px', fontWeight: '600' }}
+                      />
+                      <Area
+                        yAxisId="left"
+                        type="monotone"
+                        dataKey="avgHeight"
+                        name="avgHeight"
+                        stroke="#3b82f6"
+                        strokeWidth={2.5}
+                        fillOpacity={1}
+                        fill="url(#heightColor)"
+                        activeDot={{ r: 6 }}
+                      />
+                      <Area
+                        yAxisId="right"
+                        type="monotone"
+                        dataKey="avgWeight"
+                        name="avgWeight"
+                        stroke="#22c55e"
+                        strokeWidth={2.5}
+                        fillOpacity={1}
+                        fill="url(#weightColor)"
+                        activeDot={{ r: 6 }}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
 
@@ -444,11 +387,11 @@ export default function Health() {
 
               <div className="space-y-4 overflow-y-auto no-scrollbar max-h-[500px]">
                 {alerts.map((item) => (
-                  <div 
+                  <div
                     key={item.id}
                     className="flex flex-col gap-3 p-5 rounded-2xl border border-slate-100 dark:border-slate-700/60 bg-white dark:bg-slate-800 hover:shadow-xs transition-all"
                   >
-                    
+
                     {/* Header: Avatar, Name, Badge */}
                     <div className="flex items-start justify-between gap-3 w-full">
                       <div className="flex items-center gap-3">
@@ -461,15 +404,27 @@ export default function Health() {
                           </h4>
                           <p className="text-xs text-slate-400 mt-1 font-medium">
                             Risk {item.risk} · {item.age}
+                            {item.lastUpdated && (
+                              <span className="text-emerald-600 dark:text-emerald-400 font-bold ml-1">
+                                (Updated {item.lastUpdated})
+                              </span>
+                            )}
                           </p>
                         </div>
                       </div>
 
-                      {/* Alert red badge */}
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-rose-50 text-rose-600 border-rose-100">
-                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                        Alert
-                      </span>
+                      <div className="flex flex-col items-end gap-1.5">
+                        {/* Alert red badge */}
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold border bg-rose-50 text-rose-600 border-rose-100">
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                          Alert
+                        </span>
+                        {item.escalated && (
+                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-600 border border-amber-100 uppercase tracking-wider">
+                            Escalated
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Actions Row */}
@@ -477,16 +432,20 @@ export default function Health() {
                       <button
                         type="button"
                         onClick={() => handleOpenUpdate(item)}
-                        className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#078662] hover:bg-[#066e51] transition-colors cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-white bg-[#078662] hover:bg-[#066e51] transition-all cursor-pointer active:scale-95 premium-btn"
                       >
                         Update
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleEscalate(item.name)}
-                        className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-500 hover:text-slate-800 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                        disabled={item.escalated}
+                        onClick={() => handleEscalate(item.id, item.name)}
+                        className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer active:scale-95 premium-btn ${item.escalated
+                          ? 'text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-700/60 opacity-60 cursor-default active:scale-100'
+                          : 'text-slate-550 hover:text-slate-800 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
+                          }`}
                       >
-                        Escalate
+                        {item.escalated ? 'Escalated' : 'Escalate'}
                       </button>
                     </div>
 
@@ -505,7 +464,7 @@ export default function Health() {
       {showUpdateModal && selectedChild && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs transition-all animate-in fade-in duration-200">
           <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 w-full max-w-md shadow-2xl overflow-hidden p-6 sm:p-8 relative animate-in zoom-in-95 duration-200">
-            
+
             {/* Header */}
             <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700/60 mb-6">
               <div>
@@ -597,7 +556,7 @@ export default function Health() {
       {showReportModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs transition-all animate-in fade-in duration-200">
           <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 w-full max-w-2xl shadow-2xl overflow-hidden p-6 sm:p-8 relative animate-in zoom-in-95 duration-200 flex flex-col max-h-[85vh]">
-            
+
             {/* Header */}
             <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700/60 mb-4 shrink-0">
               <div>
@@ -617,7 +576,7 @@ export default function Health() {
 
             {/* Scrollable Report Content */}
             <div className="flex-1 overflow-y-auto space-y-6 pr-2 no-scrollbar text-slate-800 dark:text-slate-200 text-sm">
-              
+
               {/* Document Header */}
               <div className="text-center py-4 bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-slate-100 dark:border-slate-700 p-4">
                 <h4 className="font-extrabold text-base text-[#001746] dark:text-blue-400 tracking-wide uppercase">Ama Shishu Suraksha Platform</h4>

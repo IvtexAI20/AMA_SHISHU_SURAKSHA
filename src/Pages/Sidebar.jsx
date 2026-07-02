@@ -8,6 +8,7 @@ export default function Sidebar({ isOpen, onClose }) {
   const getActiveName = () => {
     if (location.pathname === '/creches') return 'Crèches';
     if (location.pathname === '/children') return 'Children';
+    if (location.pathname === '/attendance') return 'Attendance';
     if (location.pathname === '/nutrition') return 'Nutrition';
     if (location.pathname === '/safety') return 'Safety & CCTV';
     if (location.pathname === '/health') return 'Health';
@@ -42,6 +43,14 @@ export default function Sidebar({ isOpen, onClose }) {
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      )
+    },
+    {
+      name: 'Attendance',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
         </svg>
       )
     },
@@ -126,21 +135,14 @@ export default function Sidebar({ isOpen, onClose }) {
 
         {/* Header Profile Section */}
         <div className="p-6 flex items-center justify-between border-b border-slate-100 dark:border-slate-700/60">
-          <div className="flex items-center gap-4">
-            {/* Profile Avatar */}
-            <div className="w-12 h-12 rounded-full bg-[#078662]/10 flex items-center justify-center text-[#078662] font-bold text-lg">
-              AS
-            </div>
-
-            {/* Title Details */}
-            <div className="flex flex-col">
-              <h2 className="text-slate-800 dark:text-white font-bold text-sm tracking-wide leading-tight">
-                AMA SHISHU
-              </h2>
-              <span className="text-[10px] font-bold text-[#078662] tracking-wider uppercase mt-0.5">
-                SURAKSHA PLATFORM
-              </span>
-            </div>
+          {/* Title Details */}
+          <div className="flex flex-col">
+            <h2 className="text-slate-800 dark:text-white font-bold text-sm tracking-wide leading-tight">
+              AMA SHISHU
+            </h2>
+            <span className="text-[10px] font-bold text-[#078662] tracking-wider uppercase mt-0.5">
+              SURAKSHA PLATFORM
+            </span>
           </div>
 
           {/* Mobile Close (X) Button */}
@@ -166,6 +168,7 @@ export default function Sidebar({ isOpen, onClose }) {
                   if (item.name === 'Crèches') navigate('/creches');
                   else if (item.name === 'Dashboard') navigate('/dashboard');
                   else if (item.name === 'Children') navigate('/children');
+                  else if (item.name === 'Attendance') navigate('/attendance');
                   else if (item.name === 'Nutrition') navigate('/nutrition');
                   else if (item.name === 'Safety & CCTV') navigate('/safety');
                   else if (item.name === 'Health') navigate('/health');
@@ -175,13 +178,13 @@ export default function Sidebar({ isOpen, onClose }) {
                   else if (item.name === 'Settings') navigate('/settings');
                   if (onClose) onClose();
                 }}
-                className={`w-full flex items-center justify-between py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-200 group ${isActive
-                  ? 'bg-[#078662] text-white shadow-sm'
-                  : 'hover:bg-slate-50 dark:hover:bg-slate-700/40 hover:text-slate-800 dark:hover:text-white text-slate-500 dark:text-slate-400'
+                className={`w-full flex items-center justify-between py-3 px-4 rounded-xl font-semibold text-sm transition-all duration-300 group ${isActive
+                  ? 'bg-[#078662] text-white shadow-md shadow-emerald-700/10 dark:shadow-none'
+                  : 'hover:bg-slate-50 dark:hover:bg-slate-700/30 hover:text-[#078662] dark:hover:text-emerald-400 text-slate-500 dark:text-slate-400 hover:translate-x-1'
                   }`}
               >
                 <div className="flex items-center gap-3.5">
-                  <span className={`transition-colors duration-200 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-650'
+                  <span className={`transition-colors duration-300 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-[#078662] dark:group-hover:text-emerald-400'
                     }`}>
                     {item.icon}
                   </span>

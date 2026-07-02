@@ -67,7 +67,7 @@ export default function Navbar({ onToggleSidebar }) {
           <input
             type="text"
             placeholder="Search crèches, children, incidents..."
-            className="w-full pl-10 pr-4 py-2 bg-slate-100/70 dark:bg-slate-800 border-none rounded-full text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-slate-100/90 dark:focus:bg-slate-800 transition-all"
+            className="w-full pl-10 pr-4 py-2 bg-slate-100/70 dark:bg-slate-800 border-none rounded-full text-sm text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#078662]/20 focus:bg-slate-100/90 dark:focus:bg-slate-800 transition-all shadow-xs"
           />
         </div>
       </div>
@@ -131,7 +131,7 @@ export default function Navbar({ onToggleSidebar }) {
               <div className="border-t border-slate-100 dark:border-slate-700 my-2"></div>
 
               <button
-                onClick={() => { setShowDropdown(false); alert('Opening settings...'); }}
+                onClick={() => { setShowDropdown(false); navigate('/settings'); }}
                 className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left"
               >
                 <svg className="w-4 h-4 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">

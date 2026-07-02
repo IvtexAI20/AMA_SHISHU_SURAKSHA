@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
+import dbData from '../data.json';
 
 export default function Inspection() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -8,18 +9,17 @@ export default function Inspection() {
   const [toastMsg, setToastMsg] = useState('');
 
   // Initial inspections mock data directly matching screenshot values
-  const [inspections, setInspections] = useState([
-    { id: 'INS-4000', creche: 'Shishu Crèche 1', inspector: 'Insp. Rao', date: '2026-07-5', status: 'In Progress', score: 98 },
-    { id: 'INS-4001', creche: 'Ananda Crèche 2', inspector: 'Insp. Singh', date: '2026-07-6', status: 'In Progress', score: 90 },
-    { id: 'INS-4002', creche: 'Surya Crèche 3', inspector: 'Insp. Behera', date: '2026-07-7', status: 'Scheduled', score: 82 },
-    { id: 'INS-4003', creche: 'Tara Crèche 4', inspector: 'Insp. Patnaik', date: '2026-07-8', status: 'Approved', score: 74 },
-    { id: 'INS-4004', creche: 'Jagannath Crèche 5', inspector: 'Insp. Rao', date: '2026-07-9', status: 'Approved', score: 66 },
-    { id: 'INS-4005', creche: 'Konark Crèche 6', inspector: 'Insp. Singh', date: '2026-07-10', status: 'Submitted', score: 97 },
-    { id: 'INS-4006', creche: 'Lotus Crèche 7', inspector: 'Insp. Behera', date: '2026-07-11', status: 'In Progress', score: 89 },
-    { id: 'INS-4007', creche: 'Asha Crèche 8', inspector: 'Insp. Patnaik', date: '2026-07-12', status: 'In Progress', score: 81 },
-    { id: 'INS-4008', creche: 'Shishu Crèche 9', inspector: 'Insp. Rao', date: '2026-07-13', status: 'Scheduled', score: 73 },
-    { id: 'INS-4009', creche: 'Ananda Crèche 10', inspector: 'Insp. Singh', date: '2026-07-14', status: 'Approved', score: 65 },
-  ]);
+  const [inspections, setInspections] = useState(() => {
+    const saved = localStorage.getItem('inspections');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    return dbData.inspections;
+  });
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('All Statuses');
@@ -78,7 +78,9 @@ export default function Inspection() {
       score: parseInt(formInspection.score) || 80
     };
 
-    setInspections([newRecord, ...inspections]);
+    const updatedList = [newRecord, ...inspections];
+    setInspections(updatedList);
+    localStorage.setItem('inspections', JSON.stringify(updatedList));
     setShowAddModal(false);
     setFormInspection({
       creche: '',
@@ -169,7 +171,7 @@ export default function Inspection() {
             <div className="flex items-center gap-3 self-end sm:self-auto">
               <button
                 onClick={() => setShowAddModal(true)}
-                className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-colors shadow-sm cursor-pointer active:scale-95 whitespace-nowrap"
+                className="flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#078662] hover:bg-[#066e51] rounded-full transition-colors shadow-sm cursor-pointer active:scale-95 premium-btn whitespace-nowrap"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -180,7 +182,7 @@ export default function Inspection() {
           </div>
 
           {/* Search & Filter card */}
-          <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors">
+          <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700/60 p-4 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 transition-all duration-300 hover:shadow-md hover:shadow-slate-100/50 dark:hover:shadow-none">
             {/* Search Input */}
             <div className="relative w-full sm:max-w-xl">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
@@ -193,7 +195,7 @@ export default function Inspection() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search by crèche, inspector, or ID..."
-                className="w-full pl-11 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/60 border-none rounded-full text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#078662]/20 transition-all font-medium"
+                className="w-full pl-11 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-transparent rounded-full text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 focus-glow-brand transition-all font-medium"
               />
             </div>
 
@@ -202,7 +204,7 @@ export default function Inspection() {
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="appearance-none w-full sm:w-48 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full pl-4 pr-9 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#078662]/20 transition-all"
+                className="appearance-none w-full sm:w-48 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full pl-4 pr-9 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 cursor-pointer focus-glow-brand transition-all"
               >
                 <option value="All Statuses">All Statuses</option>
                 <option value="Approved">Approved</option>
